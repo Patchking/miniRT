@@ -63,19 +63,20 @@ void	scene_setup(t_store *st)
 {
 	t_obj	*c1;
 
-	create_circle_to_scene(st, v3f(0, 1, 1), color(0, 130, 0, 0), 1, 0);
-	create_circle_to_scene(st, v3f(0, 0, 4), color(0, 0, 100, 0), 1, 0);
-	create_circle_to_scene(st, v3f(-1, -1, 3), color(0, 0, 0, 100), 1, 0);
-	// create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(0, 1, 0), 0.8);
-	// create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(0, -1, 0), 0.8);
-	// create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(0, 0, -1), 0.8);
-	// create_plain_to_scene(st, -10, color(0, 100, 100, 100), v3f(0, 0, 1), 0.8);
-	// create_plain_to_scene(st, -3, color(0, 100, 100, 100), v3f(1, 0, 0), 0.8);
-	// create_plain_to_scene(st, -3, color(0, 100, 100, 100), v3f(-1, 0, 0), 0.8);
+	create_circle_to_scene(st, v3f(0, 1, 1), color(0, 130, 0, 0), 1, 0.6);
+	create_circle_to_scene(st, v3f(0, 0, 4), color(0, 0, 100, 0), 2, 0.6);
+	create_circle_to_scene(st, v3f(-1, -1, 3), color(0, 0, 0, 100), 1, 0.6);
+	create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(0, 1, 0), 0.0);
+	create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(0, -1, 0), 0.0);
+	create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(0, 0, -1), 0.0);
+	create_plain_to_scene(st, -10, color(0, 255, 255, 255), v3f(0, 0, 1), 0.0);
+	create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(1, 0, 0), 0.0);
+	create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(-1, 0, 0), 0.0);
 	st->cam_pos = v3f(0, 0, -5);
-	st->cam_dir = v3_norm(v3f(0, 10, 10));
-	st->ref_count = 100;
+	st->cam_dir = v3_norm(v3f(1, 1, 1));
+	st->ref_count = 10;
 	st->skyc = color(0, 160, 200, 240);
+	// st->lo = v3f(0, 1, 1);
 }
 
 void	init(t_store *st)
@@ -91,16 +92,25 @@ void	init(t_store *st)
 	scene_setup(st);
 }
 
-t_v3	rotate(t_v3 v, t_v3 ang)
+t_v3	rotate(t_v3 v, t_v3 a)
 {
 	t_v3	out;
 
-	// out.x = ang.x * v.x + ang.z * v.y - ang.y * v.z;
-	// out.y = -ang.z * v.x + ang.y * v.y + ang.z * v.z;
-	// out.z = ang.y * v.x - ang.x * v.y + ang.x * v.z;
-	out.x = ang.z * v.x - ang.x * v.y + ang.y * v.z;
-	out.y = -ang.y * v.x + ang.z * v.y + ang.x * v.z;
-	out.z = ang.x * v.x + ang.y * v.y - ang.z * v.z;
+	out.x = a.x * a.x * v.x - a.x * a.y * v.y - a.z * v.z;
+	out.y = a.z * a.y * (1 - a.x) * v.x + a.z * (a.x + a.y * a.y) * v.y - a.x * a.y * v.z;
+	out.z = a.z * a.z * a.x * v.x * a.y * (a.x - a.z * a.z) * v.y + a.z * a.x * v.z;
+	// out.x = a.x * v.x - a.z * v.y + a.y * v.z;
+	// out.y = -a.y * v.x + a.x * v.y + a.z * v.z;
+	// out.z = a.z * v.x + a.y * v.y - a.x * v.z;
+	// out.x = a.x * v.x + a.z * v.y - a.y * v.z;
+	// out.y = -a.z * v.x + a.y * v.y + a.x * v.z;
+	// out.z = a.y * v.x - a.x * v.y + a.z * v.z;
+	// out.x = a.x * v.x + a.z * v.y - a.y * v.z;
+	// out.y = -a.z * v.x + a.y * v.y + a.z * v.z;
+	// out.z = a.y * v.x - a.x * v.y + a.x * v.z;
+	// out.x = a.z * v.x - a.x * v.y + a.y * v.z;
+	// out.y = -a.y * v.x + a.z * v.y + a.x * v.z;
+	// out.z = a.x * v.x + a.y * v.y - a.z * v.z;
 	return (out);
 }
 
@@ -113,7 +123,7 @@ int	cast_ray_by_pos(t_store *st, int x, int y, t_v3 step)
 	rd.y = step.y * (y - st->vp.height / 2) * step.z;
 	rd.z = 1;
 	rd = v3_norm(rd);
-	rd = v3_sign(rotate(rd, st->cam_dir));
+	// rd = v3_sign(rotate(rd, st->cam_dir));
 	ro = st->cam_pos;
 	// ro = v3_sum(rotate(v3_multv(v3_sub(rd, v3f(0, 0, 1)), 1), st->cam_dir), st->cam_pos);
 	temp1 = x;
@@ -177,13 +187,15 @@ int	main(void) {
 	t_store st;
 
 	init(&st);
-	// temp_draw_gradient(&st);
-	// temp_scalar_mult(&st);
-	// sphIntersectTest(v3f(0, 0, -10), v3_norm(v3f(0.1, 0.1, 1)), v3f(0, 0, 0), 2);
-	// temp_sphere_intersect_test(&st);
 	update(&st);
 	// mlx_mouse_hide();
+	// t_v3	vec = {0, 0, 1};
+	// print_vec(rotate(vec, v3f(1, 0, 0)));
+	// print_vec(rotate(vec, v3f(0, 1, 0)));
+	// print_vec(rotate(vec, v3_norm(v3f(0, 0, 1))));
 	mlx_put_image_to_window(st.vp.mlx, st.vp.mlx_win, st.vp.mlx_image, 0, 0);
 	// mlx_loop_hook(st.vp.mlx, update, &st);
 	mlx_loop(st.vp.mlx);
 }
+
+

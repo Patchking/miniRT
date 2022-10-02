@@ -39,6 +39,17 @@ t_color	color_blend(t_color c0, t_color c1, double ratio)
 	return (out);
 }
 
+t_color	color_multv(t_color c, double v)
+{
+	t_color	out;
+
+	out.t = 0;
+	out.r = v * c.r;
+	out.g = v * c.g;
+	out.b = v * c.b;
+	return (out);
+}
+
 t_color	color(unsigned char t, unsigned char r,
 					unsigned char g, unsigned char b)
 {

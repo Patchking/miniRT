@@ -14,13 +14,6 @@ double	sphIntersect(t_v3 ro, t_v3 rd, t_v3 ce, double ra)
 
 double	plnIntersect(t_v3 ro, t_v3 rd, t_v3 a, double w)
 {
-	// double	d;
-
-	// d = v3_dot(ro, v3_sign(a));
-	// if (d <= 0)
-	// 	return (DBL_MAX);
-	// return (v3_dist(v3_sub(ce, ro)) / d);
-	// return -(dot(ro,p.xyz)+p.w)/dot(rd,p.xyz);
 	double	d;
 
 	d = v3_dot(a, rd);

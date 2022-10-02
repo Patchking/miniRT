@@ -75,7 +75,7 @@ typedef struct	s_store
 {
 	int			dt;
 	int			ref_count;
-	t_v3		ld;
+	t_v3		lo;
 	t_v3		cam_pos;
 	t_v3		cam_dir;
 	t_list		*scobj;
@@ -86,18 +86,19 @@ typedef struct	s_store
 typedef struct	s_raycast
 {
 	t_obj	*obj;
-	double	curmin;
 	double	dist;
 	t_color	out;
 	t_v3	intersect;
 	t_v3	norm;
 }	t_raycast;
 
+/* color utils */
+t_color	color_multv(t_color c, double v);
 t_color	color_blend(t_color c0, t_color c1, double ratio);
 t_color	color(unsigned char t, unsigned char r,
 					unsigned char g, unsigned char b);
 
-// Vector's operations
+/* Vector's operations */
 t_v3	v3f(double x, double y, double z);
 t_v3	v3_sign(t_v3 v1);
 t_v3	v3_sum(t_v3 v1, t_v3 v2);
