@@ -6,10 +6,12 @@ double	sphIntersect(t_v3 ro, t_v3 rd, t_v3 ce, double ra)
 	double b = v3_dot(oc, rd);
 	double c = v3_dot(oc, oc) - ra * ra;
 	double h = b * b - c;
-	if(h <= 0.0 || b < 0.0)
+	if(h <= 0.0)
 		return (DBL_MAX);
-	h = sqrt( h );
-	return ((b - h));
+	h = b - sqrt(h);
+	if (h <= 0)
+		return (DBL_MAX);
+	return (h);
 }
 
 double	plnIntersect(t_v3 ro, t_v3 rd, t_v3 a, double w)

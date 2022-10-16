@@ -62,21 +62,23 @@ void	create_plain_to_scene(t_store *st, double w, t_color c, t_v3 ang, double re
 void	scene_setup(t_store *st)
 {
 	t_obj	*c1;
+	t_color	ambient_color = color(0, 200, 100, 100);
 
-	create_circle_to_scene(st, v3f(0, 1, 1), color(0, 130, 0, 0), 1, 0.6);
-	create_circle_to_scene(st, v3f(0, 0, 4), color(0, 0, 100, 0), 2, 0.6);
-	create_circle_to_scene(st, v3f(-1, -1, 3), color(0, 0, 0, 100), 1, 0.6);
-	create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(0, 1, 0), 0.0);
-	create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(0, -1, 0), 0.0);
-	create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(0, 0, -1), 0.0);
-	create_plain_to_scene(st, -10, color(0, 255, 255, 255), v3f(0, 0, 1), 0.0);
-	create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(1, 0, 0), 0.0);
-	create_plain_to_scene(st, -3, color(0, 255, 255, 255), v3f(-1, 0, 0), 0.0);
+	create_circle_to_scene(st, v3f(1, 0, 2), color(0, 130, 0, 0), 2, 0);
+	// create_circle_to_scene(st, v3f(0, 1, 1), color(0, 0, 100, 0), 1, 0.6);
+	// create_circle_to_scene(st, v3f(-1, -1, 1), color(0, 0, 0, 100), 1, 0.6);
+	create_plain_to_scene(st, -4, ambient_color, v3f(0, 1, 0), 0.1);
+	create_plain_to_scene(st, -4, ambient_color, v3f(0, -1, 0), 0.1);
+	create_plain_to_scene(st, -10, ambient_color, v3f(0, 0, -1), 0.1);
+	create_plain_to_scene(st, -7, ambient_color, v3f(0, 0, 1), 0.1);
+	create_plain_to_scene(st, -4, ambient_color, v3f(1, 0, 0), 0.1);
+	create_plain_to_scene(st, -4, ambient_color, v3f(-1, 0, 0), 0.1);
 	st->cam_pos = v3f(0, 0, -5);
 	st->cam_dir = v3_norm(v3f(1, 1, 1));
-	st->ref_count = 10;
+	st->ref_count = 0;
 	st->skyc = color(0, 160, 200, 240);
-	// st->lo = v3f(0, 1, 1);
+	st->lo = v3f(2, 2, 2);
+	st->amb_light = color(0, 0, 10, 25);
 }
 
 void	init(t_store *st)
@@ -147,14 +149,15 @@ void	temp_draw_scene(t_store *st)
 	step.x = 2.0 / st->vp.width * st->vp.diff;
 	step.y = 2.0 / st->vp.height * st->vp.diff;
 	step.z = (double)st->vp.height / st->vp.width;
-	// st->ld = v3_norm(v3f(-1, sin(0.05 * st->dt), cos(0.05 * st->dt)));
-	// st->vp.fov = (PI / 2) + sin(st->dt * 0.03) * (PI / 8) + (PI / 16);
+	st->lo = v3f(cos(st->dt * 0.1) * 3, sin(st->dt * 0.1) * 3, 2 + cos(st->dt * 0.05) * 3);
+	// st->ld = v3_norm(v3f(-1, sin(0.15 * st->dt), cos(0.15 * st->dt)));
+	// st->vp.fov = (PI / 2) + sin(st->dt * 0.13) * (PI / 8) + (PI / 16);
 	// st->ld = v3_norm(v3f(-1, 1, 1));
-	// st->scobj->data->pos = v3f(cos(st->dt * 0.05), sin(st->dt * 0.05) * 1.5, 10);
-	// st->scobj->next->data->pos = v3f(-cos(st->dt * 0.05), -sin(st->dt * 0.05) * 1.5, 10);
-	// st->scobj->data->pos = v3f(sin(st->dt * 0.05) * 1.5, 0, 5);
+	st->scobj->data->pos = v3f(-cos(st->dt * 0.15), -sin(st->dt * 0.15) * 1.5, 2);
+	// st->scobj->next->data->pos = v3f(-cos(st->dt * 0.15), -sin(st->dt * 0.15) * 1.5, 10);
+	// st->scobj->data->pos = v3f(sin(st->dt * 0.15) * 1.5, 0, 5);
 	// st->scobj->next->data->pos = v3f(0, 0, 5);
-	// st->cam_dir = v3_norm(v3f(0, st->dt * 0.01 , 1));
+	// st->cam_dir = v3_norm(v3f(0, st->dt * 0.11 , 1));
 	// printf("st->cam_dir = ");
 	// print_vec(st->cam_dir);
 	it.x = 0;
@@ -194,7 +197,7 @@ int	main(void) {
 	// print_vec(rotate(vec, v3f(0, 1, 0)));
 	// print_vec(rotate(vec, v3_norm(v3f(0, 0, 1))));
 	mlx_put_image_to_window(st.vp.mlx, st.vp.mlx_win, st.vp.mlx_image, 0, 0);
-	// mlx_loop_hook(st.vp.mlx, update, &st);
+	mlx_loop_hook(st.vp.mlx, update, &st);
 	mlx_loop(st.vp.mlx);
 }
 

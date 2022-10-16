@@ -80,6 +80,7 @@ typedef struct	s_store
 	t_v3		cam_dir;
 	t_list		*scobj;
 	t_color		skyc;
+	t_color		amb_light;
 	t_viewport	vp;
 }	t_store;
 
@@ -87,7 +88,6 @@ typedef struct	s_raycast
 {
 	t_obj	*obj;
 	double	dist;
-	t_color	out;
 	t_v3	intersect;
 	t_v3	norm;
 }	t_raycast;
