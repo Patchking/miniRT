@@ -5,3 +5,5 @@ libft/libft.a
 miniRT
 minilibx/libmlx.a
 python_calculation
+*.d
+*.o

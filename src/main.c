@@ -86,10 +86,10 @@ void	scene_setup(t_store *st)
 
 	const float	wall_mirror = 0.8;
 	const float sphere_mirror = 0.1;
-	create_cylinder_to_scene(st, v3f(-1, 0, 4), v3f(1, 0, 4), 1, color(0, 100, 0, 0), 0);
+	// create_cylinder_to_scene(st, v3f(-1, 0, 4), v3f(1, 0, 4), 1, color(0, 100, 0, 0), 0);
 	create_circle_to_scene(st, v3f(0, 0, 5), color(0, 100, 0, 0), 1, sphere_mirror);
-	// create_circle_to_scene(st, v3f(0, 1, 1), color(0, 0, 100, 0), 1, sphere_mirror);
-	// create_circle_to_scene(st, v3f(-1, -1, 1), color(0, 0, 0, 100), 1, sphere_mirror);
+	create_circle_to_scene(st, v3f(0, 1, 1), color(0, 0, 100, 0), 1, sphere_mirror);
+	create_circle_to_scene(st, v3f(-1, -1, 1), color(0, 0, 0, 100), 1, sphere_mirror);
 	create_plain_to_scene(st, -4, wall_color, v3f(0, 1, 0), wall_mirror);
 	create_plain_to_scene(st, -4, wall_color, v3f(0, -1, 0), wall_mirror);
 	create_plain_to_scene(st, -10, wall_color, v3f(0, 0, -1), wall_mirror);
@@ -98,7 +98,7 @@ void	scene_setup(t_store *st)
 	create_plain_to_scene(st, -4, wall_color, v3f(-1, 0, 0), wall_mirror);
 	st->cam_pos = v3f(0, 0, 0);
 	st->cam_dir = v3_norm(v3f(0, 1, 0));
-	st->ref_count = 0;
+	st->ref_count = 10;
 	st->skyc = c_to_v3(color(0, 5, 5, 35));
 	st->lo = v3f(3, 3, 2);
 	st->amb_light = v3f(1, 1, 1);
@@ -159,7 +159,7 @@ int	cast_ray_by_pos(t_store *st, int x, int y, t_v3 step)
 	rd.x = step.x * (x - st->vp.width / 2);
 	rd.y = step.y * (y - st->vp.height / 2) * step.z;
 	rd.z = 1;
-	rd = v3_multv(rd, st->cam_dir);
+	// rd = v3_multv(rd, st->cam_dir);
 	rd = v3_norm(rd);
 	// rd = v3_sign(rotate(rd, st->cam_dir));
 	ro = st->cam_pos;
@@ -237,7 +237,7 @@ int	main(void) {
 	// print_vec(rotate(vec, v3f(0, 1, 0)));
 	// print_vec(rotate(vec, v3_norm(v3f(0, 0, 1))));
 	mlx_put_image_to_window(st.vp.mlx, st.vp.mlx_win, st.vp.mlx_image, 0, 0);
-	// mlx_loop_hook(st.vp.mlx, update, &st);
+	mlx_loop_hook(st.vp.mlx, update, &st);
 	mlx_loop(st.vp.mlx);
 }
 

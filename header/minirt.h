@@ -6,7 +6,7 @@
 # include "math.h"
 # include <limits.h>
 # include <float.h>
-# define PI	3.1415926535f
+# define PI	3.1415926535
 # define CIRCLE 0
 # define PLAIN 1
 # define CYLINDER 2
@@ -88,7 +88,7 @@ typedef struct s_viewport
 	void	*mlx_win;
 	void	*mlx_image;
 	void	*mlx_out_image;
-	double	fov;
+	double	fov; // fov
 	double	diff;
 }	t_viewport;
 
@@ -96,15 +96,15 @@ typedef struct	s_store
 {
 	int			dt;
 	int			ref_count;
-	t_v3		lo;
-	t_v3		cam_pos;
-	t_v3		cam_dir;
+	t_v3		lo; // light pos
+	t_v3		cam_pos; // camera pos
+	t_v3		cam_dir; // camera ang
 	t_list		*scobj;
 	t_v3		skyc;
-	t_v3		amb_light;
-	double		amb_str;
-	t_v3		lth_color;
-	double		lth_str;
+	t_v3		amb_light; // ambient color
+	double		amb_str; // cof ambient 
+	t_v3		lth_color; // light color
+	double		lth_str; // ligth str
 	// double		shadow_coefficient;
 	t_viewport	vp;
 }	t_store;
