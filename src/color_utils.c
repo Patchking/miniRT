@@ -11,23 +11,6 @@
 /* ************************************************************************** */
 #include "../header/minirt.h"
 
-// void	cord_sum(t_point3 *p0, t_point3 *p1)
-// {
-// 	p0->x += p1->x;
-// 	p0->y += p1->y;
-// 	p0->z += p1->z;
-// }
-
-// int	color_blend_int_t(t_color c0, t_color c1, double ratio)
-// {
-// 	int	out;
-
-// 	out = (int)(c0.r * ratio + c1.r * (1 - ratio)) << 16;
-// 	out |= (int)(c0.g * ratio + c1.g * (1 - ratio)) << 8;
-// 	out |= (int)(c0.b * ratio + c1.b * (1 - ratio));
-// 	return (out);
-// }
-
 t_color	color_blend(t_color c0, t_color c1, double ratio)
 {
 	t_color	out;
@@ -62,7 +45,23 @@ t_color	color(unsigned char t, unsigned char r,
 	return (c);
 }
 
-// int	create_color_t(t_color in)
-// {
-// 	return (in.t << 24 | in.r << 16 | in.g << 8 | in.b);
-// }
+t_v3	c_to_v3(t_color c)
+{
+	t_v3	out;
+
+	out.x = (double)c.r / 255;
+	out.y = (double)c.g / 255;
+	out.z = (double)c.b / 255;
+	return (out);
+}
+
+t_color	v3_to_c(t_v3 v)
+{
+	t_color	out;
+
+	out.t = 0;
+	out.r = v.x * 255;
+	out.g = v.y * 255;
+	out.b = v.z * 255;
+	return (out);
+}

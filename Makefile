@@ -3,7 +3,9 @@ NAME = miniRT
 SRC_LST = main.c\
 		  color_utils.c\
 		  intersect_formulas.c\
-		  vec_operations.c\
+		  vec_operations_0.c\
+		  vec_operations_1.c\
+		  vec_operations_2.c\
 		  list.c\
 		  ray_cast.c\
 		  test.c

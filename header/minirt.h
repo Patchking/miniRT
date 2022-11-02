@@ -9,6 +9,10 @@
 # define PI	3.1415926535f
 # define CIRCLE 0
 # define PLAIN 1
+# define CYLINDER 2
+// отладочные дефайны. Удалить перед сдачей!
+#define WHITE v3f(1, 1, 1);
+#define BLACK v3f(0, 0, 0);
 
 int temp1, temp2;
 
@@ -43,12 +47,29 @@ typedef struct s_obj
 	int		type;
 	t_v3	pos;
 	t_v3	ang;
-	t_color	color;
+	t_v3	insec;
+	t_v3	norm;
+	t_v3	color;
 	double	ref;
 	double	par1;
 	double	par2;
 	double	par3;
 }	t_obj;
+
+typedef struct s_cylinder
+{
+	t_v3	ba;
+	t_v3	oc;
+	double	baba;
+	double	bard;
+	double	baoc;
+	double	k2;
+	double	k1;
+	double	k0;
+	double	h;
+	double	t;
+	double	y;
+}	t_cylinder;
 
 typedef struct s_list
 {
@@ -79,8 +100,12 @@ typedef struct	s_store
 	t_v3		cam_pos;
 	t_v3		cam_dir;
 	t_list		*scobj;
-	t_color		skyc;
-	t_color		amb_light;
+	t_v3		skyc;
+	t_v3		amb_light;
+	double		amb_str;
+	t_v3		lth_color;
+	double		lth_str;
+	// double		shadow_coefficient;
 	t_viewport	vp;
 }	t_store;
 
@@ -92,11 +117,25 @@ typedef struct	s_raycast
 	t_v3	norm;
 }	t_raycast;
 
+typedef struct	s_phong
+{
+	t_v3	aml;
+	t_v3	amo;
+	t_v3	dfl;
+	t_v3	dfo;
+	t_v3	spl;
+	t_v3	spo;
+}	t_phong;
+
 /* color utils */
 t_color	color_multv(t_color c, double v);
 t_color	color_blend(t_color c0, t_color c1, double ratio);
 t_color	color(unsigned char t, unsigned char r,
 					unsigned char g, unsigned char b);
+t_v3	c_to_v3(t_color c);
+t_color	v3_to_c(t_v3 v);
+t_v3	v3_clamp(t_v3 c, double min, double max);
+t_v3	color_overload(t_v3 c);
 
 /* Vector's operations */
 t_v3	v3f(double x, double y, double z);
@@ -105,16 +144,18 @@ t_v3	v3_sum(t_v3 v1, t_v3 v2);
 t_v3	v3_sumv(t_v3 v1, double v2);
 t_v3	v3_sub(t_v3 v1, t_v3 v2);
 t_v3	v3_subv(t_v3 v1, double v2);
+t_v3	v3_multv(t_v3 v1, t_v3 v2);
+t_v3	v3_multd(t_v3 v1, double v2);
 t_v3	v3_mult(t_v3 v1, t_v3 v2);
-t_v3	v3_multv(t_v3 v1, double v2);
 double	v3_dot(t_v3 v1, t_v3 v2);
 double	v3_len(t_v3 v1);
 t_v3	v3_norm(t_v3 v1);
 t_v3	v3_ref(t_v3 v, t_v3 n);
 
 // Intersections with shepes
-double	sphIntersect(t_v3 ro, t_v3 rd, t_v3 ce, double ra);
-double	plnIntersect(t_v3 ro, t_v3 rd, t_v3 a, double w);
+double	sphIntersect(t_v3 ro, t_v3 rd, t_obj *obj);
+double	plnIntersect(t_v3 ro, t_v3 rd, t_obj *obj);
+double	cylIntersect(t_v3 ro, t_v3 rd, t_obj *obj);
 
 /*    list    */
 t_list	*create_list(t_obj *data);
