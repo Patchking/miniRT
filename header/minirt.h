@@ -6,11 +6,14 @@
 # include "math.h"
 # include <limits.h>
 # include <float.h>
+# include <fcntl.h> 				//для парсера
 # define PI	3.1415926535
 # define CIRCLE 0
 # define PLAIN 1
 # define CYLINDER 2
 // отладочные дефайны. Удалить перед сдачей!
+#define WHITE v3f(1, 1, 1);
+#define BLACK v3f(0, 0, 0);
 
 int temp1, temp2;
 
@@ -99,6 +102,10 @@ typedef struct	s_basis
 
 typedef struct	s_store
 {
+	char 		**split; 			//для парсера
+	int 		a_parsed; 			//для парсера
+	int 		c_parsed; 			//для парсера
+	int 		l_parsed; 			//для парсера
 	int			dt;
 	int			ref_count;
 	t_v3		lo; // light pos
@@ -130,6 +137,7 @@ t_color	color(unsigned char t, unsigned char r,
 t_v3	c_to_v3(t_color c);
 t_color	v3_to_c(t_v3 v);
 t_v3	v3_clamp(t_v3 c, double min, double max);
+t_v3	color_overload(t_v3 c);
 
 /* Vector's operations */
 t_v3	v3f(double x, double y, double z);

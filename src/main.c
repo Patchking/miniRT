@@ -237,7 +237,7 @@ int	main(void) {
 	// print_vec(rotate(vec, v3f(0, 1, 0)));
 	// print_vec(rotate(vec, v3_norm(v3f(0, 0, 1))));
 	mlx_put_image_to_window(st.vp.mlx, st.vp.mlx_win, st.vp.mlx_image, 0, 0);
-	// mlx_loop_hook(st.vp.mlx, update, &st);
+	mlx_loop_hook(st.vp.mlx, update, &st);
 	mlx_loop(st.vp.mlx);
 }
 
