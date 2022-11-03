@@ -98,7 +98,7 @@ void	scene_setup(t_store *st)
 	create_plain_to_scene(st, -4, wall_color, v3f(-1, 0, 0), wall_mirror);
 	st->cam_pos = v3f(0, 0, 0);
 	st->cam_dir = v3_norm(v3f(0, 1, 0));
-	st->ref_count = 10;
+	st->ref_count = 0;
 	st->skyc = c_to_v3(color(0, 5, 5, 35));
 	st->lo = v3f(3, 3, 2);
 	st->amb_light = v3f(1, 1, 1);
@@ -120,34 +120,31 @@ void	init(t_store *st)
 	scene_setup(st);
 }
 
-t_v3	rotate(t_v3 v, t_v3 a)
+void	create_basis(t_store *st, t_v3 v)
+{
+	// st->basis.x = v3f(1, 0, 0);
+	// st->basis.y = v3f(0, 1, 0);
+	// st->basis.z = v3f(0, 0, 1);
+
+	if (v.z >= 0.99)
+		v = v3f(0.01, 0.01, 0.98);
+	v = v3_norm(v);
+	st->basis.x = v;
+	st->basis.y = v3f(-1, 0, 0);
+	st->basis.z = v3_norm(v3_multv(st->basis.x, st->basis.y));
+	st->basis.y = v3_multv(st->basis.x, st->basis.z);
+	print_vec(st->basis.x);
+	print_vec(st->basis.y);
+	print_vec(st->basis.z);
+}
+
+t_v3	rotate(t_v3 v, t_basis *b)
 {
 	t_v3	out;
-	double	m[6];
 
-	m[0] = a.z / sqrt(a.y * a.y + a.z * a.z);
-	m[1] = a.y / sqrt(a.y * a.y + a.z * a.z);
-	m[2] = a.x / sqrt(a.x * a.x + a.z * a.z);
-	m[3] = a.z / sqrt(a.x * a.x + a.z * a.z);
-	m[4] = a.x / sqrt(a.x * a.x + a.y * a.y);
-	m[5] = a.y / sqrt(a.x * a.x + a.y * a.y);
-
-
-	// out.x = a.x * a.x * v.x - a.x * a.y * v.y - a.z * v.z;
-	// out.y = a.z * a.y * (1 - a.x) * v.x + a.z * (a.x + a.y * a.y) * v.y - a.x * a.y * v.z;
-	// out.z = a.z * a.z * a.x * v.x * a.y * (a.x - a.z * a.z) * v.y + a.z * a.x * v.z;
-	// out.x = a.x * v.x - a.z * v.y + a.y * v.z;
-	// out.y = -a.y * v.x + a.x * v.y + a.z * v.z;
-	// out.z = a.z * v.x + a.y * v.y - a.x * v.z;
-	// out.x = a.x * v.x + a.z * v.y - a.y * v.z;
-	// out.y = -a.z * v.x + a.y * v.y + a.x * v.z;
-	// out.z = a.y * v.x - a.x * v.y + a.z * v.z;
-	// out.x = a.x * v.x + a.z * v.y - a.y * v.z;
-	// out.y = -a.z * v.x + a.y * v.y + a.z * v.z;
-	// out.z = a.y * v.x - a.x * v.y + a.x * v.z;
-	// out.x = a.z * v.x - a.x * v.y + a.y * v.z;
-	// out.y = -a.y * v.x + a.z * v.y + a.x * v.z;
-	// out.z = a.x * v.x + a.y * v.y - a.z * v.z;
+	out.x = b->x.x * v.x + b->y.x * v.y + b->z.x * v.z;
+	out.y = b->x.y * v.x + b->y.y * v.y + b->z.y * v.z;
+	out.z = b->x.z * v.x + b->y.z * v.y + b->z.z * v.z;
 	return (out);
 }
 
@@ -161,6 +158,7 @@ int	cast_ray_by_pos(t_store *st, int x, int y, t_v3 step)
 	rd.z = 1;
 	// rd = v3_multv(rd, st->cam_dir);
 	rd = v3_norm(rd);
+	// rd = rotate(rd, &st->basis);
 	// rd = v3_sign(rotate(rd, st->cam_dir));
 	ro = st->cam_pos;
 	// ro = v3_sum(rotate(v3_multd(v3_sub(rd, v3f(0, 0, 1)), 1), st->cam_dir), st->cam_pos);
@@ -181,6 +179,8 @@ void	temp_draw_scene(t_store *st)
 		printf("scene is empty\n");
 		return ;
 	}
+	create_basis(st, v3f(0, 0, 1));
+	print_vec(rotate(v3f(1, 1, 1), &st->basis));
 	st->vp.diff = tan(st->vp.fov / 2);
 	step.x = 2.0 / st->vp.width * st->vp.diff;
 	step.y = 2.0 / st->vp.height * st->vp.diff;
@@ -237,7 +237,7 @@ int	main(void) {
 	// print_vec(rotate(vec, v3f(0, 1, 0)));
 	// print_vec(rotate(vec, v3_norm(v3f(0, 0, 1))));
 	mlx_put_image_to_window(st.vp.mlx, st.vp.mlx_win, st.vp.mlx_image, 0, 0);
-	mlx_loop_hook(st.vp.mlx, update, &st);
+	// mlx_loop_hook(st.vp.mlx, update, &st);
 	mlx_loop(st.vp.mlx);
 }
 

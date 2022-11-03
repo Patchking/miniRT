@@ -11,8 +11,6 @@
 # define PLAIN 1
 # define CYLINDER 2
 // отладочные дефайны. Удалить перед сдачей!
-#define WHITE v3f(1, 1, 1);
-#define BLACK v3f(0, 0, 0);
 
 int temp1, temp2;
 
@@ -92,6 +90,13 @@ typedef struct s_viewport
 	double	diff;
 }	t_viewport;
 
+typedef struct	s_basis
+{
+	t_v3	x;
+	t_v3	y;
+	t_v3	z;
+}	t_basis;
+
 typedef struct	s_store
 {
 	int			dt;
@@ -105,7 +110,7 @@ typedef struct	s_store
 	double		amb_str; // cof ambient 
 	t_v3		lth_color; // light color
 	double		lth_str; // ligth str
-	// double		shadow_coefficient;
+	t_basis		basis;
 	t_viewport	vp;
 }	t_store;
 
@@ -117,16 +122,6 @@ typedef struct	s_raycast
 	t_v3	norm;
 }	t_raycast;
 
-typedef struct	s_phong
-{
-	t_v3	aml;
-	t_v3	amo;
-	t_v3	dfl;
-	t_v3	dfo;
-	t_v3	spl;
-	t_v3	spo;
-}	t_phong;
-
 /* color utils */
 t_color	color_multv(t_color c, double v);
 t_color	color_blend(t_color c0, t_color c1, double ratio);
@@ -135,7 +130,6 @@ t_color	color(unsigned char t, unsigned char r,
 t_v3	c_to_v3(t_color c);
 t_color	v3_to_c(t_v3 v);
 t_v3	v3_clamp(t_v3 c, double min, double max);
-t_v3	color_overload(t_v3 c);
 
 /* Vector's operations */
 t_v3	v3f(double x, double y, double z);
