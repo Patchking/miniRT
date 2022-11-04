@@ -2,8 +2,8 @@
 # define MINIRT_H
 # include "libft.h"
 # include "mlx.h"
-# include "stdio.h"
-# include "math.h"
+# include <stdio.h>
+# include <math.h>
 # include <limits.h>
 # include <float.h>
 # include <fcntl.h> 				//для парсера
@@ -11,9 +11,6 @@
 # define CIRCLE 0
 # define PLAIN 1
 # define CYLINDER 2
-// отладочные дефайны. Удалить перед сдачей!
-#define WHITE v3f(1, 1, 1);
-#define BLACK v3f(0, 0, 0);
 
 int temp1, temp2;
 
@@ -136,8 +133,6 @@ t_color	color(unsigned char t, unsigned char r,
 					unsigned char g, unsigned char b);
 t_v3	c_to_v3(t_color c);
 t_color	v3_to_c(t_v3 v);
-t_v3	v3_clamp(t_v3 c, double min, double max);
-t_v3	color_overload(t_v3 c);
 
 /* Vector's operations */
 t_v3	v3f(double x, double y, double z);
@@ -153,6 +148,7 @@ double	v3_dot(t_v3 v1, t_v3 v2);
 double	v3_len(t_v3 v1);
 t_v3	v3_norm(t_v3 v1);
 t_v3	v3_ref(t_v3 v, t_v3 n);
+t_v3	v3_clamp(t_v3 c, double min, double max);
 
 // Intersections with shepes
 double	sphIntersect(t_v3 ro, t_v3 rd, t_obj *obj);
@@ -171,5 +167,8 @@ t_color	ray_cast(t_store *st, t_v3 rd, t_v3 ro, int d);
 /*    test    */
 void    print_color(t_color c);
 void	print_vec(t_v3 vec);
+
+/*    main    */
+void	eject(t_store *st);
 
 #endif

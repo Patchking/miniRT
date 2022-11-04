@@ -35,7 +35,7 @@ t_v3	str_to_vec(char *str, t_store *st)
 	if (count_split(split) != 3 || ft_str_c_count(str, ',') != 2)
 	{
 		split_clear(split);
-		ft_error("Error\nInvalid scene\n");
+		ft_error(st, "Error\nInvalid scene\n");
 	}
 	x = ft_atof(split[0]);
 	y = ft_atof(split[1]);
@@ -43,14 +43,4 @@ t_v3	str_to_vec(char *str, t_store *st)
 	vector = v3f(x, y, z);
 	split_clear(split);
 	return (vector);
-}
-
-void	check_normal(t_v3 vector)
-{
-	if (vector.x > 1 || vector.x < -1 \
-		|| vector.y > 1 || vector.y < -1 \
-		|| vector.z > 1 || vector.z < -1)
-		ft_error("Error\nInvalid scene\n");
-	if (vector.x == 0 && vector.y == 0 && vector.z == 0)
-		ft_error("Error\nInvalid scene\n");
 }

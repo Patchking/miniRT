@@ -16,7 +16,7 @@
 #include "../header/minirt.h"
 
 void    parse(t_store *st,  char* rt_file);
-void	check_file_extension(char *name);
+void	check_file_extension(char *name, t_store *st);
 void	parse_type_id(t_store *st);
 
 void	parse_ambient(t_store *st);
@@ -29,13 +29,14 @@ void	parse_cylindre(t_store *st);
 
 t_v3	split_rgb(char *rgb, t_store *st);
 int		ft_strcmp(char *s1, char *s2);
-void	ft_error(char *msg);
+void	ft_error(t_store *st, char *msg);
 double	ft_atof(char *str);
-int	    count_split(char **split);
+int		count_split(char **split);
 t_v3	str_to_vec(char *str, t_store *st);
-void	check_normal(t_v3 vector);
-int	    ft_str_c_count(char *str, char c);
+int		ft_str_c_count(char *str, char c);
 char	**split_clear(char **split);
 
+int		ft_esc_close(int key, t_store *st);
+int		ft_close_red_cross(t_store *st);
 
 #endif

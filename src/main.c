@@ -1,14 +1,13 @@
 #include "minirt.h"
 #include "parse.h"
 
-void force_quit(t_store *st)
+void eject(t_store *st)
 {
 	free_list(st->scobj);
 	free(st->vp.mlx_image);
 	free(st->vp.mlx_win);
 	free(st->vp.mlx);
-	printf("force quit executed!\n");
-	close(1);
+	exit(0);
 }
 
 void temp_setup_vars(t_store *st)
@@ -34,49 +33,7 @@ void	init_set_zero(t_store *st)
 	st->vp.mlx_image = NULL;
 	st->vp.mlx_out_image = NULL;
 	st->scobj = NULL;
-}
-
-void	create_circle_to_scene(t_store *st, t_v3 pos, t_color c, double r, double ref)
-{
-	t_obj	*c1;
-
-	c1 = malloc(sizeof(t_obj));
-	c1->type = CIRCLE;
-	c1->pos = pos;
-	c1->par1 = r;
-	c1->color = c_to_v3(c);
-	c1->ref = ref;
-	if (push_back(&st->scobj, c1))
-		force_quit(st);	
-}
-
-void	create_plain_to_scene(t_store *st, double w, t_color c, t_v3 ang, double ref)
-{
-	t_obj	*c1;
-
-	c1 = malloc(sizeof(t_obj));
-	c1->type = PLAIN;
-	c1->par1 = w;
-	c1->ang = v3_norm(ang);
-	c1->color = c_to_v3(c);
-	c1->ref = ref;
-	if (push_back(&st->scobj, c1))
-		force_quit(st);	
-}
-
-void	create_cylinder_to_scene(t_store *st, t_v3 p1, t_v3 p2, double r, t_color c, double ref)
-{
-	t_obj	*c1;
-
-	c1 = malloc(sizeof(t_obj));
-	c1->type = CYLINDER;
-	c1->pos = p1;
-	c1->ang = p2;
-	c1->par1 = r;
-	c1->color = c_to_v3(c);
-	c1->ref = ref;
-	if (push_back(&st->scobj, c1))
-		force_quit(st);	
+	st->split = NULL;
 }
 
 void	scene_setup(t_store *st)
@@ -92,7 +49,7 @@ void	scene_setup(t_store *st)
 	// create_circle_to_scene(st, v3f(0, 1, 1), color(0, 0, 100, 0), 1, sphere_mirror);
 	// create_circle_to_scene(st, v3f(-1, -1, 1), color(0, 0, 0, 100), 1, sphere_mirror);
 	// create_plain_to_scene(st, -4, wall_color, v3f(0, 1, 0), wall_mirror);
-	create_plain_to_scene(st, -4, wall_color, v3f(0, -1, 0), wall_mirror);
+	// create_plain_to_scene(st, -4, wall_color, v3f(0, -1, 0), wall_mirror);
 	// create_plain_to_scene(st, -10, wall_color, v3f(0, 0, -1), wall_mirror);
 	// create_plain_to_scene(st, -7, wall_color, v3f(0, 0, 1), wall_mirror);
 	// create_plain_to_scene(st, -4, wall_color, v3f(1, 0, 0), wall_mirror);
@@ -115,7 +72,7 @@ void	init(t_store *st)
 	st->vp.mlx_image = mlx_new_image(st->vp.mlx, st->vp.width, st->vp.height);
 	st->vp.mlx_out_image = mlx_get_data_addr(st->vp.mlx_image, &st->vp.bits_per_pixel, &st->vp.mem_offset, &st->vp.endian);
 	if (!st->vp.mlx_win || !st->vp.mlx_image || !st->vp.mlx_out_image)
-		force_quit(st);
+		eject(st);
 	scene_setup(st);
 }
 
@@ -220,8 +177,6 @@ int	update(void *store)
 	temp_draw_scene(st);
 	mlx_put_image_to_window(st->vp.mlx, st->vp.mlx_win, st->vp.mlx_image, 0, 0);
 	st->dt++;
-	// st->amb_light = color_multv(st->amb_light, st->amb_str);
-	printf("dt: %d\n", st->dt);
 	return (0);
 }
 
@@ -230,15 +185,13 @@ int	main(int argc, char **argv) {
 
 	init_set_zero(&st);
 	temp_setup_vars(&st);
+	if (argc != 2)
+		ft_error(&st, "Error\nInvalid scene\n");
 	parse(&st, argv[1]);
 	init(&st);
 	update(&st);
-	// mlx_mouse_hide();
-	// t_v3	vec = {0, 0, 1};
-	// print_vec(rotate(vec, v3f(1, 0, 0)));
-	// print_vec(rotate(vec, v3f(0, 1, 0)));
-	// print_vec(rotate(vec, v3_norm(v3f(0, 0, 1))));
 	mlx_put_image_to_window(st.vp.mlx, st.vp.mlx_win, st.vp.mlx_image, 0, 0);
-	mlx_loop_hook(st.vp.mlx, update, &st);
+	mlx_hook(st.vp.mlx_win, 17, 0, ft_close_red_cross, &st);
+	mlx_key_hook(st.vp.mlx_win, ft_esc_close, &st);
 	mlx_loop(st.vp.mlx);
 }

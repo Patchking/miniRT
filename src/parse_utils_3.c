@@ -23,10 +23,10 @@ int		ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-void	ft_error(char *msg)
+void	ft_error(t_store *st, char *msg)
 {
 	ft_printf("%s\n", msg);
-	exit(1);
+	ft_close_red_cross(st);
 }
 
 static size_t	ft_intlen(int n)

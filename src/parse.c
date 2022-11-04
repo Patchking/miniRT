@@ -32,7 +32,7 @@ void	parse_type_id(t_store *st)
 	// 	ft_printf("Unidentifind obj \"%s\". ingoring.\n", st->split[0]);
 }
 
-void	check_file_extension(char *name)
+void	check_file_extension(char *name, t_store *st)
 {
 	char	*format;
 
@@ -40,7 +40,7 @@ void	check_file_extension(char *name)
 	while (*name != '.' && *name != '\0')
 		name++;
 	if (ft_strncmp(name, format, 4) != 0)
-		ft_error("Error\nInvalid scene\n");
+		ft_error(st, "Error\nInvalid scene\n");
 }
 
 void parse(t_store *st,  char* rt_file)
@@ -48,7 +48,7 @@ void parse(t_store *st,  char* rt_file)
 	int fd;
 	char *line;
 
-	check_file_extension(rt_file);
+	check_file_extension(rt_file, st);
 	fd = open(rt_file, O_RDONLY);
 	line = get_next_line(fd);
 	st->a_parsed = 0;
@@ -57,6 +57,8 @@ void parse(t_store *st,  char* rt_file)
 	while (line)
 	{
 		st->split = ft_split(line, ' ');
+		if (!st->split)
+			ft_close_red_cross(st);
 		if (st->split[0])
 			parse_type_id(st);
 		free(line);
@@ -65,5 +67,3 @@ void parse(t_store *st,  char* rt_file)
 	free(line);
 	close(fd);
 }
-
-// количество аргументов проверяем в main
