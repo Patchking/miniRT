@@ -6,12 +6,25 @@
 /*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 21:05:52 by cojacque          #+#    #+#             */
-/*   Updated: 2022/11/03 21:30:15 by cojacque         ###   ########.fr       */
+/*   Updated: 2022/11/04 21:15:56 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minirt.h"
 #include "../header/parse.h"
+
+void	parse_resolution(t_store *st)
+{
+	st->vp.width = ft_atoi(st->split[1]);
+	st->vp.height = ft_atoi(st->split[2]);
+	if (st->vp.width < 1 || st->vp.height < 1)
+		ft_error("Error\nInvalid scene\n");
+	if (st->vp.width > MAX_WIDTH)
+		st->vp.width = MAX_WIDTH;
+	if (st->vp.height > MAX_HEIGHT)
+		st->vp.height = MAX_HEIGHT;
+	st->r_parsed = 1;
+}
 
 void	parse_ambient(t_store *st)
 {

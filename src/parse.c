@@ -6,7 +6,7 @@
 /*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:02:20 by cojacque          #+#    #+#             */
-/*   Updated: 2022/11/03 21:23:02 by cojacque         ###   ########.fr       */
+/*   Updated: 2022/11/04 21:18:10 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 void	parse_type_id(t_store *st)
 {	
-	if ((ft_strcmp(st->split[0], "A") == 0) && st->a_parsed != 1)
+	if ((ft_strcmp(st->split[0], "R") == 0) && st->r_parsed != 1)
+		parse_resolution(st);
+	else if ((ft_strcmp(st->split[0], "A") == 0) && st->a_parsed != 1)
 		parse_ambient(st);
 	else if ((ft_strcmp(st->split[0], "C") == 0) && st->c_parsed != 1)
 		parse_camera(st);

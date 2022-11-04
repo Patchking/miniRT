@@ -219,9 +219,9 @@ int	update(void *store)
 	st = (t_store *)store;
 	temp_draw_scene(st);
 	mlx_put_image_to_window(st->vp.mlx, st->vp.mlx_win, st->vp.mlx_image, 0, 0);
-	st->dt++;
+	// st->dt++;
 	// st->amb_light = color_multv(st->amb_light, st->amb_str);
-	printf("dt: %d\n", st->dt);
+	// printf("dt: %d\n", st->dt);
 	return (0);
 }
 

@@ -11,6 +11,8 @@
 # define CIRCLE 0
 # define PLAIN 1
 # define CYLINDER 2
+# define MAX_WIDTH 1280
+# define MAX_HEIGHT 720
 // отладочные дефайны. Удалить перед сдачей!
 #define WHITE v3f(1, 1, 1);
 #define BLACK v3f(0, 0, 0);
@@ -103,6 +105,7 @@ typedef struct	s_basis
 typedef struct	s_store
 {
 	char 		**split; 			//для парсера
+	int 		r_parsed; 			//для парсера
 	int 		a_parsed; 			//для парсера
 	int 		c_parsed; 			//для парсера
 	int 		l_parsed; 			//для парсера

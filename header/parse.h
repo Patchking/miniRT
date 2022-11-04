@@ -6,7 +6,7 @@
 /*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:11:05 by cojacque          #+#    #+#             */
-/*   Updated: 2022/11/03 21:27:06 by cojacque         ###   ########.fr       */
+/*   Updated: 2022/11/04 21:21:12 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void    parse(t_store *st,  char* rt_file);
 void	check_file_extension(char *name);
 void	parse_type_id(t_store *st);
 
+void	parse_resolution(t_store *st);
 void	parse_ambient(t_store *st);
 void	parse_camera(t_store *st);
 void	parse_light(t_store *st);
@@ -36,6 +37,5 @@ t_v3	str_to_vec(char *str, t_store *st);
 void	check_normal(t_v3 vector);
 int	    ft_str_c_count(char *str, char c);
 char	**split_clear(char **split);
-
 
 #endif
