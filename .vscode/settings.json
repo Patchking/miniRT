@@ -4,6 +4,8 @@
         "vector": "c",
         "algorithm": "c",
         "ios": "c",
-        "__locale": "c"
+        "__locale": "c",
+        "chrono": "c",
+        "libft.h": "c"
     }
 }
