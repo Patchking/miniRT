@@ -25,7 +25,7 @@ int		ft_strcmp(char *s1, char *s2)
 
 void	ft_error(t_store *st, char *msg)
 {
-	ft_printf("%s\n", msg);
+	ft_putstr_fd(msg, 2);
 	ft_close_red_cross(st);
 }
 

@@ -12,11 +12,8 @@
 
 #include "../header/minirt.h"
 
-# define KEY_ESC 53             //перенести в хедэр
-
 int	ft_close_red_cross(t_store *st)
 {
-	
 	eject(st);
 	return (0);
 }

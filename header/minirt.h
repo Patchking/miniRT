@@ -13,6 +13,7 @@
 # define CYLINDER 2
 # define MAX_WIDTH 1280
 # define MAX_HEIGHT 720
+# define KEY_ESC 53
 
 typedef union u_color
 {
