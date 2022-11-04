@@ -242,5 +242,3 @@ int	main(int argc, char **argv) {
 	mlx_loop_hook(st.vp.mlx, update, &st);
 	mlx_loop(st.vp.mlx);
 }
-
-

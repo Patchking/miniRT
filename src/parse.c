@@ -32,7 +32,8 @@ void	parse_type_id(t_store *st)
 	else if ((ft_strcmp(st->split[0], "cy") == 0))
 		parse_cylindre(st);
 	else
-		ft_error("Error\nInvalid scene\n");
+		// ft_error("Error\nInvalid scene\n"); // Временно. Потом удалить или или смотреть по сабжу
+		ft_printf("Unidentifind obj \"%s\". ingoring.\n", st->split[0]);
 }
 
 void	check_file_extension(char *name)
@@ -42,13 +43,8 @@ void	check_file_extension(char *name)
 	format = ".rt";
 	while (*name != '.' && *name != '\0')
 		name++;
-	if (*name == '\0')
+	if (ft_strncmp(name, format, 4) != 0)
 		ft_error("Error\nInvalid scene\n");
-	if (*name == '.')
-	{
-		if (ft_strncmp(name, format, 4) != 0)
-			ft_error("Error\nInvalid scene\n");
-	}
 }
 
 void parse(t_store *st,  char* rt_file)

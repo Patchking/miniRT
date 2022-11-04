@@ -22,7 +22,7 @@ LIB = $(MINILIBX) $(LIBFT)
 
 INCLUDE = -I $(MINILIBX_HDR) -I $(SRC_HDR) -I $(LIBFT_HDR)
 NEEDED_FLAGS = -framework OpenGL -framework AppKit
-CFLAGS = #-fsanitize=address #-Wall -Wextra -Werror #-lm
+CFLAGS = -g #-fsanitize=address #-Wall -Wextra -Werror #-lm
 CC = gcc
 
 MINILIBX_DIR = minilibx/
