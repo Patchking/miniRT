@@ -118,8 +118,6 @@ int	cast_ray_by_pos(t_store *st, int x, int y, t_v3 step)
 	// rd = v3_sign(rotate(rd, st->cam_dir));
 	ro = st->cam_pos;
 	// ro = v3_sum(rotate(v3_multd(v3_sub(rd, v3f(0, 0, 1)), 1), st->cam_dir), st->cam_pos);
-	temp1 = x;
-	temp2 = y;
 	return (ray_cast(st, rd, ro, st->ref_count).i);
 }
 

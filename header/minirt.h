@@ -6,15 +6,13 @@
 # include <math.h>
 # include <limits.h>
 # include <float.h>
-# include <fcntl.h> 				//для парсера
+# include <fcntl.h>
 # define PI	3.1415926535
 # define CIRCLE 0
 # define PLAIN 1
 # define CYLINDER 2
 # define MAX_WIDTH 1280
 # define MAX_HEIGHT 720
-
-int temp1, temp2;
 
 typedef union u_color
 {
