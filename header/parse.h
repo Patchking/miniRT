@@ -23,6 +23,10 @@ void	parse_ambient(t_store *st);
 void	parse_camera(t_store *st);
 void	parse_light(t_store *st);
 
+void	parse_sphere(t_store *st);
+void	parse_plane(t_store *st);
+void	parse_cylindre(t_store *st);
+
 t_v3	split_rgb(char *rgb, t_store *st);
 int		ft_strcmp(char *s1, char *s2);
 void	ft_error(char *msg);

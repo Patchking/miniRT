@@ -8,7 +8,14 @@ SRC_LST = main.c\
 		  vec_operations_2.c\
 		  list.c\
 		  ray_cast.c\
-		  test.c
+		  test.c\
+		  destroy_win.c\
+		  parse_amb_cam_lth.c\
+		  parse_objects.c\
+		  parse_utils_1.c\
+		  parse_utils_2.c\
+		  parse_utils_3.c\
+		  parse.c\
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_LST))
 LIB = $(MINILIBX) $(LIBFT)

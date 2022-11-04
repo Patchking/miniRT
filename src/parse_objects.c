@@ -21,9 +21,9 @@ void	parse_sphere(t_store *st)
 		ft_error("Error\nInvalid scene\n");
 	sphere = (t_obj *)malloc(sizeof(t_obj));
 	sphere->pos = str_to_vec(st->split[1], st);
-	sphere->diameter = ft_atof(st->split[2]);
+	sphere->par1 = ft_atof(st->split[2]);
 	sphere->color = split_rgb(st->split[3], st);
-	if (sphere->diameter < 0)
+	if (sphere->par1 < 0)
 		ft_error("Error\nInvalid scene\n");
 }
 
@@ -35,7 +35,8 @@ void	parse_plane(t_store *st)
 		ft_error("Error\nInvalid scene\n");
 	plane = (t_obj *)malloc(sizeof(t_obj));
 	plane->pos = str_to_vec(st->split[1], st);
-	plane->ang = str_to_vec(st->split[2], st);
+	// plane->ang = str_to_vec(st->split[2], st);
+	plane->par1 = -v3_dot(plane->pos, str_to_vec(st->split[2], st));
 	plane->color = split_rgb(st->split[3], st);
 	check_normal(plane->ang);
 }
@@ -48,9 +49,9 @@ void	parse_cylindre(t_store *st)
 		ft_error("Error\nInvalid scene\n");
 	cylind = (t_obj *)malloc(sizeof(t_obj));
 	cylind->pos = str_to_vec(st->split[1], st);
-	cylind->ang = str_to_vec(st->split[2], st);
-	cylind->diameter = ft_atof(st->split[3]);		//переименовать или добавить в структуру
-	cylind->height = ft_atof(st->split[4]);			//переименовать или добавить в структуру
+	cylind->ang = v3_sum(cylind->pos, v3_multd(str_to_vec(st->split[2], st),
+		ft_atof(st->split[4])));
+	cylind->par1 = ft_atof(st->split[3]);		//переименовать или добавить в структуру
 	cylind->color = split_rgb(st->split[5], st);
 	check_normal(cylind->ang);
 }

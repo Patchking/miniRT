@@ -61,7 +61,7 @@ void parse(t_store *st,  char* rt_file)
 	line = get_next_line(fd);
 	while (line)
 	{
-		st->split = ft_split(line, " ");
+		st->split = ft_split(line, ' ');
 		if (st->split[0])
 			parse_type_id(st);
 		free(line);

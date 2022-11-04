@@ -1,4 +1,5 @@
 #include "minirt.h"
+#include "parse.h"
 
 void force_quit(t_store *st)
 {
@@ -226,9 +227,10 @@ int	update(void *store)
 	return (0);
 }
 
-int	main(void) {
+int	main(int argc, char **argv) {
 	t_store st;
 
+	parse(&st, argv[1]);
 	init(&st);
 	update(&st);
 	// mlx_mouse_hide();
