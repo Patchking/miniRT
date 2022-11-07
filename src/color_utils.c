@@ -9,6 +9,7 @@
 /*   Updated: 2022/01/21 16:42:13 by ohaggard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../header/minirt.h"
 
 t_color	color_blend(t_color c0, t_color c1, double ratio)

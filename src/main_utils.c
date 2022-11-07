@@ -1,5 +1,16 @@
-#include "minirt.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_objects.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/03 21:01:15 by cojacque          #+#    #+#             */
+/*   Updated: 2022/11/03 21:29:00 by cojacque         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minirt.h"
 
 void	create_basis(t_store *st, t_v3 v)
 {
@@ -12,9 +23,6 @@ void	create_basis(t_store *st, t_v3 v)
 	st->basis.y = v3f(0, -1, 0);
 	st->basis.z = v3_norm(v3_multv(st->basis.y, st->basis.x));
 	st->basis.y = v3_multv(st->basis.z, st->basis.x);
-	print_vec(st->basis.x);
-	print_vec(st->basis.y);
-	print_vec(st->basis.z);
 }
 
 t_v3	rotate(t_v3 v, t_basis *b)
@@ -40,7 +48,7 @@ void	recalculate_colors(t_store *st)
 	}
 }
 
-void eject(t_store *st)
+void	eject(t_store *st)
 {
 	free_list(st->scobj);
 	free(st->vp.mlx_image);

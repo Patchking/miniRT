@@ -45,7 +45,7 @@ void	parse_camera(t_store *st)
 		ft_error(st, "Error\nParse error. Camera has 3 params\n");
 	st->cam_pos = str_to_vec(st->split[1], st);
 	st->cam_dir = str_to_vec(st->split[2], st);
-	st->cam_dir = v3_norm(st->cam_dir);;
+	st->cam_dir = v3_norm(st->cam_dir);
 	st->vp.fov = PI / 180 * ft_atoi(st->split[3]);
 	if (st->vp.fov >= PI)
 		st->vp.fov = PI - PI / 180;

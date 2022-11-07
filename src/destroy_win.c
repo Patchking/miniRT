@@ -24,4 +24,3 @@ int	ft_esc_close(int key, t_store *st)
 		ft_close_red_cross(st);
 	return (0);
 }
-

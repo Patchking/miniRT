@@ -29,9 +29,8 @@ void	parse_type_id(t_store *st)
 		parse_plane(st);
 	else if ((ft_strcmp(st->split[0], "cy") == 0))
 		parse_cylindre(st);
-	// else
-	// 	// ft_error("Error\nInvalid scene\n"); // Временно. Потом удалить или или смотреть по сабжу
-	// 	ft_printf("Unidentifind obj \"%s\". ingoring.\n", st->split[0]);
+	else
+		ft_error(st, "Error\nInvalid obj\n");
 }
 
 void	check_file_extension(char *name, t_store *st)
@@ -45,10 +44,10 @@ void	check_file_extension(char *name, t_store *st)
 		ft_error(st, "Error\nWrong file extansion\n");
 }
 
-void parse(t_store *st,  char* rt_file)
+void	parse(t_store *st, char *rt_file)
 {
-	int fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	check_file_extension(rt_file, st);
 	fd = open(rt_file, O_RDONLY);

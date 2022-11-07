@@ -157,9 +157,12 @@ t_v3	v3_ref(t_v3 v, t_v3 n);
 t_v3	v3_clamp(t_v3 c, double min, double max);
 
 // Intersections with shepes
-double	sphIntersect(t_v3 ro, t_v3 rd, t_obj *obj);
-double	plnIntersect(t_v3 ro, t_v3 rd, t_obj *obj);
-double	cylIntersect(t_v3 ro, t_v3 rd, t_obj *obj);
+double	sph_intersect(t_v3 ro, t_v3 rd, t_obj *obj);
+double	pln_intersect(t_v3 ro, t_v3 rd, t_obj *obj);
+double	cyl_intersect(t_v3 ro, t_v3 rd, t_obj *obj);
+double	cyl_intersect_part_2(t_v3 ro, t_v3 rd, t_obj *o, t_cylinder *c);
+double	cyl_intersect2(t_v3 *ro, t_v3 *rd, t_cylinder *c, t_obj *o);
+double	cyl_intersect1(t_v3 *ro, t_v3 *rd, t_cylinder *c, t_obj *o);
 
 /*    list    */
 t_list	*create_list(t_obj *data);

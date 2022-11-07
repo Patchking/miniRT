@@ -56,7 +56,7 @@ void	parse_cylindre(t_store *st)
 	cylind->ang = v3_norm(str_to_vec(st->split[2], st));
 	cylind->pos = str_to_vec(st->split[1], st);
 	cylind->ang = v3_sum(cylind->pos, v3_multd(cylind->ang,
-		ft_atof(st->split[4])));
+				ft_atof(st->split[4])));
 	cylind->par1 = ft_atof(st->split[3]);
 	cylind->color = split_rgb(st->split[5], st);
 	push_back(&st->scobj, cylind);
