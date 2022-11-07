@@ -24,8 +24,6 @@ void	parse_sphere(t_store *st)
 	sphere->pos = str_to_vec(st->split[1], st);
 	sphere->par1 = ft_atof(st->split[2]);
 	sphere->color = split_rgb(st->split[3], st);
-	if (sphere->par1 <= 0)
-		ft_error(st, "Error\nRadius of sphere should be more then 0\n");
 	push_back(&st->scobj, sphere);
 	st->sp_parsed = 1;
 }
@@ -35,7 +33,13 @@ void	parse_plane(t_store *st)
 	t_obj	*plane;
 
 	if (count_split(st->split) != 4)
+	{
+		printf("pararms: %d, %s\n", count_split(st->split), st->split[5]);
+		for (int i = 0; i < 7; i++)
+			printf("%s\n", st->split[i]);
+
 		ft_error(st, "Error\nParse error. Plane has 3 params\n");
+	}
 	plane = (t_obj *)malloc(sizeof(t_obj));
 	plane->type = PLAIN;
 	plane->pos = str_to_vec(st->split[1], st);

@@ -55,7 +55,7 @@ t_v3	calculate_diflight(t_store *st, t_raycast *rc, t_raycast *rcl)
 	return (color);
 }
 
-t_color	calculate_color(t_store *st, t_raycast *rc, t_v3 rd, t_v3 ro)
+t_color	calculate_color(t_store *st, t_raycast *rc, t_v3 rd)
 {
 	t_raycast	rcl;
 	t_v3		color;
@@ -89,7 +89,7 @@ t_color	ray_cast(t_store *st, t_v3 rd, t_v3 ro, int d)
 	{
 		return (v3_to_c(st->skyc));
 	}
-	out = calculate_color(st, &rc, rd, ro);
+	out = calculate_color(st, &rc, rd);
 	rc.norm = v3_ref(rd, rc.obj->norm);
 	if (d > 0 && rc.obj->ref != 0)
 		out = color_blend(ray_cast(st, rc.norm, rc.obj->insec, d

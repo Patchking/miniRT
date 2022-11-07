@@ -47,9 +47,7 @@ int	cast_ray_by_pos(t_store *st, int x, int y, t_v3 step)
 void	temp_draw_scene(t_store *st)
 {
 	t_v3	step;
-	t_v3	rd;
 	t_v3i	it;
-	t_v3	ro;
 
 	create_basis(st, st->cam_dir);
 	st->vp.diff = tan(st->vp.fov / 2);
