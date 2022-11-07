@@ -18,12 +18,14 @@ void temp_setup_vars(t_store *st)
 	st->vp.mem_offset = 0;
 	st->vp.fov = PI / 2;
 	st->dt = 0;
+	st->ref_count = 0;
+	st->skyc = c_to_v3(color(0, 5, 5, 35));
 }
 
 void	pixel_put(t_store *st, int x, int y, unsigned int color)
 {
-	*(unsigned int *)((char *)st->vp.mlx_out_image + (y * st->vp.mem_offset + x *
-					(st->vp.bits_per_pixel / 8))) = color;
+	*(unsigned int *)((char *)st->vp.mlx_out_image + (y * st->vp.mem_offset +
+				x * (st->vp.bits_per_pixel / 8))) = color;
 }
 
 void	init_set_zero(t_store *st)
@@ -34,8 +36,6 @@ void	init_set_zero(t_store *st)
 	st->vp.mlx_out_image = NULL;
 	st->scobj = NULL;
 	st->split = NULL;
-	st->ref_count = 0;
-	st->skyc = c_to_v3(color(0, 5, 5, 35));
 }
 
 // void	scene_setup(t_store *st)
@@ -65,6 +65,19 @@ void	init_set_zero(t_store *st)
 // 	// st->lth_str = 1;
 // }
 
+void	recalculate_colors(t_store *st)
+{
+	t_list	*lst;
+
+	lst = st->scobj;
+	while (lst)
+	{
+		lst->data->color = v3_multd(lst->data->color, st->lth_str);
+		lst->data->color_dark = v3_multd(lst->data->color, 0.5);
+		lst = lst->next;
+	}
+}
+
 void	init(t_store *st)
 {
 	st->vp.mlx = mlx_init();
@@ -73,6 +86,10 @@ void	init(t_store *st)
 	st->vp.mlx_out_image = mlx_get_data_addr(st->vp.mlx_image, &st->vp.bits_per_pixel, &st->vp.mem_offset, &st->vp.endian);
 	if (!st->vp.mlx_win || !st->vp.mlx_image || !st->vp.mlx_out_image)
 		eject(st);
+	recalculate_colors(st);
+	st->light_boarder0 = 0.1;
+	st->light_boarder1 = -0.2;
+	st->fading_cof = (st->light_boarder0 + 1 - st->amb_str) / (st->light_boarder0 - st->light_boarder1);
 }
 
 void	create_basis(t_store *st, t_v3 v)

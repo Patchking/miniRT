@@ -49,6 +49,7 @@ typedef struct s_obj
 	t_v3	insec;
 	t_v3	norm;
 	t_v3	color;
+	t_v3	color_dark;
 	double	ref;
 	double	par1;
 	double	par2;
@@ -107,15 +108,18 @@ typedef struct	s_store
 	int 		l_parsed; 			//для парсера
 	int			dt;
 	int			ref_count;
-	t_v3		lo; // light pos
-	t_v3		cam_pos; // camera pos
-	t_v3		cam_dir; // camera ang
+	t_v3		lo; 				// light pos
+	t_v3		cam_pos; 			// camera pos
+	t_v3		cam_dir;			// camera ang
 	t_list		*scobj;
 	t_v3		skyc;
-	t_v3		amb_light; // ambient color
-	double		amb_str; // cof ambient 
-	t_v3		lth_color; // light color
-	double		lth_str; // ligth str
+	double		light_boarder0;
+	double		light_boarder1;
+	double		fading_cof;			// depends from amd_str
+	t_v3		amb_light; 			// ambient color
+	double		amb_str; 			// cof ambient 
+	t_v3		lth_color; 			// light color
+	double		lth_str; 			// ligth str
 	t_basis		basis;
 	t_viewport	vp;
 }	t_store;

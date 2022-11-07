@@ -48,16 +48,14 @@ void	parse_plane(t_store *st)
 void	parse_cylindre(t_store *st)
 {
 	t_obj	*cylind;
-	t_v3	norm;
 
 	if (count_split(st->split) != 6 || ft_strlen(st->split[2]) > 8)
 		ft_error(st, "Error\nInvalid scene\n");
-	norm = str_to_vec(st->split[2], st);
 	cylind = (t_obj *)malloc(sizeof(t_obj));
 	cylind->type = CYLINDER;
-	cylind->ang = v3_norm(cylind->ang);
+	cylind->ang = v3_norm(str_to_vec(st->split[2], st));
 	cylind->pos = str_to_vec(st->split[1], st);
-	cylind->ang = v3_sum(cylind->pos, v3_multd(norm,
+	cylind->ang = v3_sum(cylind->pos, v3_multd(cylind->ang,
 		ft_atof(st->split[4])));
 	cylind->par1 = ft_atof(st->split[3]);
 	cylind->color = split_rgb(st->split[5], st);

@@ -53,9 +53,24 @@ double	find_intersect(t_store *st, t_v3 rd, t_v3 ro, t_obj **obj)
 // 	return (color_blend(rc->obj->color, st->amb_light, ld));
 // }
 
+t_v3	calculate_diflight(t_store *st, t_raycast *rc, t_raycast *rcl)
+{
+	t_v3	color;
 
+	if (rcl->dist > st->light_boarder0)
+		color = v3_multd(v3_mult(rc->obj->color, st->lth_color),
+					rcl->dist);
+	else if (rcl->dist > st->light_boarder1)
+		color = v3_multd(v3_mult(rc->obj->color, st->lth_color),
+					st->light_boarder0 + st->fading_cof * (rcl->dist
+						- st->light_boarder0));
+	else
+		color = v3_multd(v3_mult(rc->obj->color, st->lth_color),
+					st->amb_str - 1);
+	return (color);
+}
 
-t_color	calculate_color(t_store *st, t_raycast	*rc, t_v3 rd, t_v3 ro)
+t_color	calculate_color(t_store *st, t_raycast *rc, t_v3 rd, t_v3 ro)
 {
 	t_raycast	rcl;
 	t_v3		color;
@@ -65,9 +80,8 @@ t_color	calculate_color(t_store *st, t_raycast	*rc, t_v3 rd, t_v3 ro)
 	rcl.norm = v3_norm(rcl.norm);
 	rcl.intersect = rd;
 	rcl.dist = v3_dot(rcl.norm, v3_sign(rc->obj->norm));
-	color = v3_mult(rc->obj->color, st->amb_light);
-	color = v3_sum(v3_clamp(v3_multd(v3_mult(rc->obj->color, st->lth_color),
-				rcl.dist), st->amb_str - 1, st->lth_str), color);
+	color = v3_mult(rc->obj->color_dark, st->amb_light);
+	color = v3_sum(calculate_diflight(st, rc, &rcl), color);
 	temp = v3_sum(rcl.norm, rcl.intersect);
 	temp = v3_multd(st->lth_color, pow(v3_dot(v3_sign(rc->obj->norm), v3_norm(
 		v3_multd(temp, 1.0 / v3_len(temp)))), 100));

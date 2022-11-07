@@ -26,7 +26,7 @@ int	count_split(char **split)
 t_v3	str_to_vec(char *str, t_store *st)
 {
 	char		**split;
-	t_v3	vector;
+	t_v3		vector;
 	double		x;
 	double		y;
 	double		z;
