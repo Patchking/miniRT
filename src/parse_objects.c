@@ -6,7 +6,7 @@
 /*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 21:01:15 by cojacque          #+#    #+#             */
-/*   Updated: 2022/11/07 18:44:22 by cojacque         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:41:28 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	parse_cylindre(t_store *st)
 	cylind->type = CYLINDER;
 	cylind->ang = v3_norm(str_to_vec(st->split[2], st));
 	cylind->pos = str_to_vec(st->split[1], st);
-	cylind->ang = v3_sum(cylind->pos, v3_multd(cylind->ang, \
-		ft_atof(st->split[4])));
+	cylind->ang = v3_sum(cylind->pos, v3_multd(cylind->ang,
+				ft_atof(st->split[4])));
 	cylind->par1 = ft_atof(st->split[3]);
 	cylind->color = split_rgb(st->split[5], st);
 	push_back(&st->scobj, cylind);

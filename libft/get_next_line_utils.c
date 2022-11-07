@@ -67,7 +67,6 @@ char	*get_line(t_file *buffer)
 		return (0);
 	if (buffer->priv_last + i + 1 < BUFFER_SIZE)
 	{
-		printf("%d\n", i);
 		buffer->priv_last += i;
 		return (out);
 	}

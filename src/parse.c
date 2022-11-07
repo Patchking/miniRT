@@ -6,7 +6,7 @@
 /*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:02:20 by cojacque          #+#    #+#             */
-/*   Updated: 2022/11/07 19:08:54 by cojacque         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:41:20 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	parse_type_id(t_store *st)
 		|| (ft_strcmp(st->split[0], "\n") == 0))
 		return ;
 	else
-		// ft_printf("Unidentifind obj \"%s\". ignoring.\n", st->split[0]);
-		ft_error(st, "Error\nInvalid scene\n");    // Временно. Потом удалить или или смотреть по сабжу
-}
+		ft_error(st, "Error\nInvalid obj\n");
 
 void	check_file_extension(char *name, t_store *st)
 {
