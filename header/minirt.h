@@ -106,6 +106,9 @@ typedef struct	s_store
 	int 		a_parsed; 			//для парсера
 	int 		c_parsed; 			//для парсера
 	int 		l_parsed; 			//для парсера
+	int 		sp_parsed; 			//для парсера
+	int 		pl_parsed; 			//для парсера
+	int 		cy_parsed; 			//для парсера
 	int			dt;
 	int			ref_count;
 	t_v3		lo; 				// light pos

@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohaggard <ohaggard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:42:13 by ohaggard          #+#    #+#             */
-/*   Updated: 2022/01/21 16:42:13 by ohaggard         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:56:40 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
+
 char	*get_next_line(int fd)
 {
 	static t_file	buffer = {-1, {}, BUFFER_SIZE - 1, BUFFER_SIZE};

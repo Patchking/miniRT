@@ -6,7 +6,7 @@
 /*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 21:05:52 by cojacque          #+#    #+#             */
-/*   Updated: 2022/11/04 21:15:56 by cojacque         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:28:23 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	parse_camera(t_store *st)
 		ft_error(st, "Error\nParse error. Camera has 3 params\n");
 	st->cam_pos = str_to_vec(st->split[1], st);
 	st->cam_dir = str_to_vec(st->split[2], st);
-	st->cam_dir = v3_norm(st->cam_dir);;
+	st->cam_dir = v3_norm(st->cam_dir);
 	st->vp.fov = PI / 180 * ft_atoi(st->split[3]);
 	if (st->vp.fov >= PI)
 		st->vp.fov = PI - PI / 180;

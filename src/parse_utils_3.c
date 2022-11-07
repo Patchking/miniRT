@@ -6,14 +6,14 @@
 /*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:19:37 by cojacque          #+#    #+#             */
-/*   Updated: 2022/11/03 21:13:36 by cojacque         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:46:41 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minirt.h"
 #include "../header/parse.h"
 
-int		ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
 

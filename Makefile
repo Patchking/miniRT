@@ -22,7 +22,7 @@ LIB = $(MINILIBX) $(LIBFT)
 
 INCLUDE = -I $(MINILIBX_HDR) -I $(SRC_HDR) -I $(LIBFT_HDR)
 NEEDED_FLAGS = -framework OpenGL -framework AppKit
-CFLAGS = -g #-fsanitize=address #-Wall -Wextra -Werror #-lm
+CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror #-lm
 CC = gcc
 
 MINILIBX_DIR = minilibx/
@@ -41,7 +41,7 @@ DEPENDS = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.d)
 
 all:	$(NAME)
 
-$(NAME): $(MINILIBX) $(LIBFT) $(OBJ_DIR) $(OBJ)
+$(NAME): $(MINILIBX) $(LIBFT) $(OBJ_DIR) $(OBJ) Makefile
 	$(CC) $(CFLAGS) $(LIB) -MMD $(INCLUDE) $(NEEDED_FLAGS) $(OBJ) -o $(NAME)
 
 $(OBJ_DIR):

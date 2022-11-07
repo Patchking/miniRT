@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohaggard <ohaggard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 16:42:13 by ohaggard          #+#    #+#             */
-/*   Updated: 2022/01/21 16:42:13 by ohaggard         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:58:13 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
 # endif
 # include <stdlib.h>
-#include <stdio.h>
+# include <stdio.h>
 # include <unistd.h>
 
 typedef struct s_file

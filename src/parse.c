@@ -6,7 +6,7 @@
 /*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:02:20 by cojacque          #+#    #+#             */
-/*   Updated: 2022/11/04 21:18:10 by cojacque         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:08:54 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,12 @@ void	parse_type_id(t_store *st)
 		parse_plane(st);
 	else if ((ft_strcmp(st->split[0], "cy") == 0))
 		parse_cylindre(st);
-	// else
-	// 	// ft_error("Error\nInvalid scene\n"); // Временно. Потом удалить или или смотреть по сабжу
-	// 	ft_printf("Unidentifind obj \"%s\". ingoring.\n", st->split[0]);
+	else if ((ft_strcmp(st->split[0], "#") == 0) \
+		|| (ft_strcmp(st->split[0], "\n") == 0))
+		return ;
+	else
+		// ft_printf("Unidentifind obj \"%s\". ignoring.\n", st->split[0]);
+		ft_error(st, "Error\nInvalid scene\n");    // Временно. Потом удалить или или смотреть по сабжу
 }
 
 void	check_file_extension(char *name, t_store *st)
@@ -45,17 +48,27 @@ void	check_file_extension(char *name, t_store *st)
 		ft_error(st, "Error\nWrong file extansion\n");
 }
 
-void parse(t_store *st,  char* rt_file)
+static void	init_elem_flags(t_store *st)
 {
-	int fd;
-	char *line;
-
-	check_file_extension(rt_file, st);
-	fd = open(rt_file, O_RDONLY);
-	line = get_next_line(fd);
 	st->a_parsed = 0;
 	st->c_parsed = 0;
 	st->l_parsed = 0;
+	st->sp_parsed = 0;
+	st->pl_parsed = 0;
+	st->cy_parsed = 0;
+}
+
+void	parse(t_store *st, char *rt_file)
+{
+	int		fd;
+	char	*line;
+
+	check_file_extension(rt_file, st);
+	fd = open(rt_file, O_RDONLY);
+	if (fd < 0)
+		ft_error(st, "Error\nFile not opened\n");
+	line = get_next_line(fd);
+	init_elem_flags(st);
 	while (line)
 	{
 		st->split = ft_split(line, ' ');
@@ -68,4 +81,8 @@ void parse(t_store *st,  char* rt_file)
 	}
 	free(line);
 	close(fd);
+	if (st->a_parsed == 0 || st->c_parsed == 0 \
+		|| st->l_parsed == 0 || st->sp_parsed == 0 \
+		|| st->pl_parsed == 0 || st->cy_parsed == 0)
+		ft_error(st, "Error\nNot all elements in the scene\n");
 }
