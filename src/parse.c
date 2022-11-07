@@ -42,7 +42,7 @@ void	check_file_extension(char *name, t_store *st)
 	while (*name != '.' && *name != '\0')
 		name++;
 	if (ft_strncmp(name, format, 4) != 0)
-		ft_error(st, "Error\nInvalid scene\n");
+		ft_error(st, "Error\nWrong file extansion\n");
 }
 
 void parse(t_store *st,  char* rt_file)

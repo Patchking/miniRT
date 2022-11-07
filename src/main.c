@@ -176,7 +176,7 @@ int	main(int argc, char **argv) {
 	init_set_zero(&st);
 	temp_setup_vars(&st);
 	if (argc != 2)
-		ft_error(&st, "Error\nInvalid scene\n");
+		ft_error(&st, "Error\nYou should give only one argument\n");
 	parse(&st, argv[1]);
 	init(&st);
 	update(&st);

@@ -32,10 +32,12 @@ t_v3	str_to_vec(char *str, t_store *st)
 	double		z;
 
 	split = ft_split(str, ',');
+	if (!split)
+		ft_error(st, "Error\nMemory can't be allocated\n");
 	if (count_split(split) != 3 || ft_str_c_count(str, ',') != 2)
 	{
 		split_clear(split);
-		ft_error(st, "Error\nInvalid scene\n");
+		ft_error(st, "Error\nInvalid vector input\n");
 	}
 	x = ft_atof(split[0]);
 	y = ft_atof(split[1]);

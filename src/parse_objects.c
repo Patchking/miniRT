@@ -18,14 +18,14 @@ void	parse_sphere(t_store *st)
 	t_obj	*sphere;
 
 	if (count_split(st->split) != 4)
-		ft_error(st, "Error\nInvalid scene\n");
+		ft_error(st, "Error\nParse error. Sphere has 3 params\n");
 	sphere = (t_obj *)malloc(sizeof(t_obj));
 	sphere->type = CIRCLE;
 	sphere->pos = str_to_vec(st->split[1], st);
 	sphere->par1 = ft_atof(st->split[2]);
 	sphere->color = split_rgb(st->split[3], st);
-	if (sphere->par1 < 0)
-		ft_error(st, "Error\nInvalid scene\n");
+	if (sphere->par1 <= 0)
+		ft_error(st, "Error\Radius of sphere should be more then 0\n");
 	push_back(&st->scobj, sphere);
 }
 
@@ -33,8 +33,8 @@ void	parse_plane(t_store *st)
 {
 	t_obj	*plane;
 
-	if (count_split(st->split) != 4 || ft_strlen(st->split[2]) > 8)
-		ft_error(st, "Error\nInvalid scene\n");
+	if (count_split(st->split) != 4)
+		ft_error(st, "Error\nParse error. Plane has 3 params\n");
 	plane = (t_obj *)malloc(sizeof(t_obj));
 	plane->type = PLAIN;
 	plane->pos = str_to_vec(st->split[1], st);
@@ -49,8 +49,8 @@ void	parse_cylindre(t_store *st)
 {
 	t_obj	*cylind;
 
-	if (count_split(st->split) != 6 || ft_strlen(st->split[2]) > 8)
-		ft_error(st, "Error\nInvalid scene\n");
+	if (count_split(st->split) != 6)
+		ft_error(st, "Error\nParse error. Cylinder has 5 params\n");
 	cylind = (t_obj *)malloc(sizeof(t_obj));
 	cylind->type = CYLINDER;
 	cylind->ang = v3_norm(str_to_vec(st->split[2], st));

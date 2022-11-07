@@ -79,15 +79,13 @@ t_v3	split_rgb(char *rgb, t_store *st)
 	if (count_split(split) != 3 || ft_str_c_count(rgb, ',') != 2)
 	{
 		split_clear(split);
-		ft_error(st, "Error\nInvalid scene\n");
+		ft_error(st, "Error\nParse error. RGB must have 3 params\n");
 	}
 	if (check_color(split))
-		ft_error(st, "Error\nInvalid scene\n");
+		ft_error(st, "Error\nParse error. I dont know this color\n");
 	col.x = ft_atof(split[0]) / 255.0;
 	col.y = ft_atof(split[1]) / 255.0;
 	col.z = ft_atof(split[2]) / 255.0;
 	split_clear(split);
-	if (col.x < 0 || col.x > 1 || col.y < 0 || col.y > 1 || col.z < 0 || col.z > 1)
-		ft_error(st, "Error\nInvalid scene\n");
 	return (col);
 }
