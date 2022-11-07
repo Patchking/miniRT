@@ -34,6 +34,7 @@ void	parse_type_id(t_store *st)
 		return ;
 	else
 		ft_error(st, "Error\nInvalid obj\n");
+}
 
 void	check_file_extension(char *name, t_store *st)
 {
