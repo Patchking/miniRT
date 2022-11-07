@@ -36,7 +36,7 @@ SRC		= ft_bzero.c\
 		  ft_printf.c\
 		  print.c\
 		  get_next_line.c\
-		  get_next_line_utils.c
+		#   get_next_line_utils.c
 
 OBJ		= $(SRC:.c=.o)
 DEP		= $(SRC:.c=.d)

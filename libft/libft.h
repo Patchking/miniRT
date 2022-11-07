@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohaggard <ohaggard@student.21-school.ru>   +#+  +:+       +#+        */
+/*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 14:00:45 by vgocalv           #+#    #+#             */
-/*   Updated: 2021/10/04 14:00:45 by vgocalv          ###   ########.fr       */
+/*   Updated: 2022/11/08 01:20:01 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdlib.h>
@@ -20,7 +21,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
-int		ft_strlen(char *arr);
+size_t	ft_strlen(const char *arr);
 void	*ft_memset(void *memptr, int val, size_t num);
 void	ft_bzero(void *memptr, size_t num);
 void	*ft_memcpy(void *destptr, const void *srcptr, size_t num);
