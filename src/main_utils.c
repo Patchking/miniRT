@@ -29,9 +29,9 @@ t_v3	rotate(t_v3 v, t_basis *b)
 {
 	t_v3	out;
 
-	out.x = b->x.x * v.x + b->y.x * v.y + b->z.x * v.z;
+	out.z = b->x.x * v.x + b->y.x * v.y + b->z.x * v.z;
 	out.y = b->x.y * v.x + b->y.y * v.y + b->z.y * v.z;
-	out.z = b->x.z * v.x + b->y.z * v.y + b->z.z * v.z;
+	out.x = b->x.z * v.x + b->y.z * v.y + b->z.z * v.z;
 	return (out);
 }
 
@@ -42,6 +42,7 @@ void	recalculate_colors(t_store *st)
 	lst = st->scobj;
 	while (lst)
 	{
+		lst->data->ref = 0.8;
 		lst->data->color = v3_multd(lst->data->color, st->lth_str);
 		lst->data->color_dark = v3_multd(lst->data->color, 0.5);
 		lst = lst->next;

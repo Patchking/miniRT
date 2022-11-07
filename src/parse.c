@@ -29,7 +29,7 @@ void	parse_type_id(t_store *st)
 		parse_plane(st);
 	else if ((ft_strcmp(st->split[0], "cy") == 0))
 		parse_cylindre(st);
-	else if ((ft_strcmp(st->split[0], "#") == 0) \
+	else if ((ft_strcmp(st->split[0], "#") == 0)
 		|| (ft_strcmp(st->split[0], "\n") == 0))
 		return ;
 	else
@@ -80,8 +80,4 @@ void	parse(t_store *st, char *rt_file)
 	}
 	free(line);
 	close(fd);
-	if (st->a_parsed == 0 || st->c_parsed == 0 \
-		|| st->l_parsed == 0 || st->sp_parsed == 0 \
-		|| st->pl_parsed == 0 || st->cy_parsed == 0)
-		ft_error(st, "Error\nNot all elements in the scene\n");
 }

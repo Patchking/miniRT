@@ -89,7 +89,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		ft_error(&st, "Error\nYou should give only one argument\n");
 	parse(&st, argv[1]);
-	if (!st.a_parsed || !st.c_parsed || !st.l_parsed || !st.r_parsed)
+	if (!st.a_parsed || !st.c_parsed || !st.l_parsed)
 		ft_error(&st, "Error\nNot every needed obj was declaired\n");
 	init(&st);
 	update(&st);

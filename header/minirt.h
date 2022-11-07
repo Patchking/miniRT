@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/03 16:11:05 by cojacque          #+#    #+#             */
+/*   Updated: 2022/11/04 21:21:12 by cojacque         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 # include "libft.h"
@@ -92,42 +104,42 @@ typedef struct s_viewport
 	double	diff;
 }	t_viewport;
 
-typedef struct	s_basis
+typedef struct s_basis
 {
 	t_v3	x;
 	t_v3	y;
 	t_v3	z;
 }	t_basis;
 
-typedef struct	s_store
+typedef struct s_store
 {
-	char 		**split; 			//для парсера
-	int 		r_parsed; 			//для парсера
-	int 		a_parsed; 			//для парсера
-	int 		c_parsed; 			//для парсера
-	int 		l_parsed; 			//для парсера
-	int 		sp_parsed; 			//для парсера
-	int 		pl_parsed; 			//для парсера
-	int 		cy_parsed; 			//для парсера
+	char		**split;
+	int			r_parsed;
+	int			a_parsed;
+	int			c_parsed;
+	int			l_parsed;
+	int			sp_parsed;
+	int			pl_parsed;
+	int			cy_parsed;
 	int			dt;
 	int			ref_count;
-	t_v3		lo; 				// light pos
-	t_v3		cam_pos; 			// camera pos
-	t_v3		cam_dir;			// camera ang
+	t_v3		lo;
+	t_v3		cam_pos;
+	t_v3		cam_dir;
 	t_list		*scobj;
 	t_v3		skyc;
 	double		light_boarder0;
 	double		light_boarder1;
-	double		fading_cof;			// depends from amd_str
-	t_v3		amb_light; 			// ambient color
-	double		amb_str; 			// cof ambient 
-	t_v3		lth_color; 			// light color
-	double		lth_str; 			// ligth str
+	double		fading_cof;
+	t_v3		amb_light;
+	double		amb_str;
+	t_v3		lth_color;
+	double		lth_str;
 	t_basis		basis;
 	t_viewport	vp;
 }	t_store;
 
-typedef struct	s_raycast
+typedef struct s_raycast
 {
 	t_obj	*obj;
 	double	dist;
@@ -135,15 +147,13 @@ typedef struct	s_raycast
 	t_v3	norm;
 }	t_raycast;
 
-/* color utils */
 t_color	color_multv(t_color c, double v);
 t_color	color_blend(t_color c0, t_color c1, double ratio);
 t_color	color(unsigned char t, unsigned char r,
-					unsigned char g, unsigned char b);
+			unsigned char g, unsigned char b);
 t_v3	c_to_v3(t_color c);
 t_color	v3_to_c(t_v3 v);
 
-/* Vector's operations */
 t_v3	v3f(double x, double y, double z);
 t_v3	v3_sign(t_v3 v1);
 t_v3	v3_sum(t_v3 v1, t_v3 v2);
@@ -159,7 +169,6 @@ t_v3	v3_norm(t_v3 v1);
 t_v3	v3_ref(t_v3 v, t_v3 n);
 t_v3	v3_clamp(t_v3 c, double min, double max);
 
-// Intersections with shepes
 double	sph_intersect(t_v3 ro, t_v3 rd, t_obj *obj);
 double	pln_intersect(t_v3 ro, t_v3 rd, t_obj *obj);
 double	cyl_intersect(t_v3 ro, t_v3 rd, t_obj *obj);
@@ -167,20 +176,16 @@ double	cyl_intersect_part_2(t_v3 ro, t_v3 rd, t_obj *o, t_cylinder *c);
 double	cyl_intersect2(t_v3 *ro, t_v3 *rd, t_cylinder *c, t_obj *o);
 double	cyl_intersect1(t_v3 *ro, t_v3 *rd, t_cylinder *c, t_obj *o);
 
-/*    list    */
 t_list	*create_list(t_obj *data);
 int		push_back(t_list **start, t_obj *data);
 int		get_list_size(t_list *lst);
 void	free_list(t_list *lst);
 
-/*    ray_cast    */
 t_color	ray_cast(t_store *st, t_v3 rd, t_v3 ro, int d);
 
-/*    test    */
-void    print_color(t_color c);
+void	print_color(t_color c);
 void	print_vec(t_v3 vec);
 
-/*    main    */
 void	create_basis(t_store *st, t_v3 v);
 t_v3	rotate(t_v3 v, t_basis *b);
 void	recalculate_colors(t_store *st);

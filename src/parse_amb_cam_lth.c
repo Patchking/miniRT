@@ -15,10 +15,13 @@
 
 void	parse_resolution(t_store *st)
 {
-	if (count_split(st->split) != 3)
-		ft_error(st, "Error\nParse error. Resolution must have 2 params.\n");
+	if (count_split(st->split) != 4)
+		ft_error(st, "Error\nParse error. Resolution must have 3 params.\n");
 	st->vp.width = ft_atoi(st->split[1]);
 	st->vp.height = ft_atoi(st->split[2]);
+	st->ref_count = ft_atoi(st->split[3]);
+	if (st->ref_count < 0)
+		ft_error(st, "Error\nParse error. Screen ref count should be >= 0");
 	if (st->vp.width < 100 || st->vp.height < 100)
 		ft_error(st, "Error\nParse error. Min resolution is 100x100\n");
 	if (st->vp.width > MAX_WIDTH)
@@ -46,6 +49,7 @@ void	parse_camera(t_store *st)
 	st->cam_pos = str_to_vec(st->split[1], st);
 	st->cam_dir = str_to_vec(st->split[2], st);
 	st->cam_dir = v3_norm(st->cam_dir);
+	st->cam_dir.z = -st->cam_dir.z;
 	st->vp.fov = PI / 180 * ft_atoi(st->split[3]);
 	if (st->vp.fov >= PI)
 		st->vp.fov = PI - PI / 180;
