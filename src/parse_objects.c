@@ -25,7 +25,7 @@ void	parse_sphere(t_store *st)
 	sphere->par1 = ft_atof(st->split[2]);
 	sphere->color = split_rgb(st->split[3], st);
 	if (sphere->par1 <= 0)
-		ft_error(st, "Error\Radius of sphere should be more then 0\n");
+		ft_error(st, "Error\nRadius of sphere should be more then 0\n");
 	push_back(&st->scobj, sphere);
 }
 

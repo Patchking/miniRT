@@ -88,7 +88,7 @@ typedef struct s_viewport
 	void	*mlx_win;
 	void	*mlx_image;
 	void	*mlx_out_image;
-	double	fov; // fov
+	double	fov;
 	double	diff;
 }	t_viewport;
 
@@ -175,6 +175,11 @@ void    print_color(t_color c);
 void	print_vec(t_v3 vec);
 
 /*    main    */
+void	create_basis(t_store *st, t_v3 v);
+t_v3	rotate(t_v3 v, t_basis *b);
+void	recalculate_colors(t_store *st);
 void	eject(t_store *st);
+void	preparse_setup(t_store *st);
+void	pixel_put(t_store *st, int x, int y, unsigned int color);
 
 #endif

@@ -16,6 +16,8 @@ SRC_LST = main.c\
 		  parse_utils_2.c\
 		  parse_utils_3.c\
 		  parse.c\
+		  pixel_put.c\
+		  main_utils.c\
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_LST))
 LIB = $(MINILIBX) $(LIBFT)
