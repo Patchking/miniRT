@@ -6,7 +6,7 @@
 /*   By: cojacque <cojacque@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 21:01:15 by cojacque          #+#    #+#             */
-/*   Updated: 2022/11/07 19:41:28 by cojacque         ###   ########.fr       */
+/*   Updated: 2022/11/08 01:55:38 by cojacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,7 @@ void	parse_plane(t_store *st)
 	t_obj	*plane;
 
 	if (count_split(st->split) != 4)
-	{
-		printf("pararms: %d, %s\n", count_split(st->split), st->split[5]);
-		for (int i = 0; i < 7; i++)
-			printf("%s\n", st->split[i]);
-
 		ft_error(st, "Error\nParse error. Plane has 3 params\n");
-	}
 	plane = (t_obj *)malloc(sizeof(t_obj));
 	plane->type = PLAIN;
 	plane->pos = str_to_vec(st->split[1], st);
