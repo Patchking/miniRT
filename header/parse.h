@@ -35,7 +35,9 @@ double	ft_atof(char *str);
 int		count_split(char **split);
 t_v3	str_to_vec(char *str, t_store *st);
 int		ft_str_c_count(char *str, char c);
-char	**split_clear(char **split);
+void	split_clear(char **split);
+char	**mini_split(char const *s);
+int		ft_isspace(int c);
 
 int		ft_esc_close(int key, t_store *st);
 int		ft_close_red_cross(t_store *st);

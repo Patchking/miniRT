@@ -25,7 +25,6 @@ void	parse_sphere(t_store *st)
 	sphere->par1 = ft_atof(st->split[2]);
 	sphere->color = split_rgb(st->split[3], st);
 	push_back(&st->scobj, sphere);
-	st->sp_parsed = 1;
 }
 
 void	parse_plane(t_store *st)
@@ -38,11 +37,9 @@ void	parse_plane(t_store *st)
 	plane->type = PLAIN;
 	plane->pos = str_to_vec(st->split[1], st);
 	plane->ang = str_to_vec(st->split[2], st);
-	plane->ang = v3_norm(plane->ang);
-	plane->par1 = -v3_dot(plane->pos, plane->ang);
+	plane->par1 = v3_dot(plane->pos, plane->ang);
 	plane->color = split_rgb(st->split[3], st);
 	push_back(&st->scobj, plane);
-	st->pl_parsed = 1;
 }
 
 void	parse_cylindre(t_store *st)
@@ -60,5 +57,4 @@ void	parse_cylindre(t_store *st)
 	cylind->par1 = ft_atof(st->split[3]);
 	cylind->color = split_rgb(st->split[5], st);
 	push_back(&st->scobj, cylind);
-	st->cy_parsed = 1;
 }

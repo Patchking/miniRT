@@ -52,9 +52,6 @@ static void	init_elem_flags(t_store *st)
 	st->a_parsed = 0;
 	st->c_parsed = 0;
 	st->l_parsed = 0;
-	st->sp_parsed = 0;
-	st->pl_parsed = 0;
-	st->cy_parsed = 0;
 }
 
 void	parse(t_store *st, char *rt_file)
@@ -70,7 +67,7 @@ void	parse(t_store *st, char *rt_file)
 	init_elem_flags(st);
 	while (line)
 	{
-		st->split = ft_split(line, ' ');
+		st->split = mini_split(line);
 		if (!st->split)
 			ft_close_red_cross(st);
 		if (st->split[0])
@@ -78,7 +75,7 @@ void	parse(t_store *st, char *rt_file)
 		free(line);
 		line = get_next_line(fd);
 		split_clear(st->split);
-		st->split = 0;
+		st->split = NULL;
 	}
 	free(line);
 	close(fd);

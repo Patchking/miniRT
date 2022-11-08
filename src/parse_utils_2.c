@@ -35,19 +35,19 @@ static void	ft_strdel(char **as)
 	*as = NULL;
 }
 
-char	**split_clear(char **split)
+void	split_clear(char **split)
 {
 	int	i;
 
 	i = 0;
+	if (!split)
+		return ;
 	while (split[i])
 	{
 		ft_strdel(&split[i]);
 		i++;
 	}
 	free(split);
-	split = NULL;
-	return (split);
 }
 
 static int	check_color(char **rgb)

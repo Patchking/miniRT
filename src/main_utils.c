@@ -42,7 +42,8 @@ void	recalculate_colors(t_store *st)
 	lst = st->scobj;
 	while (lst)
 	{
-		lst->data->ref = 0.8;
+		lst->data->pos.x = -lst->data->pos.x;
+		lst->data->ref = st->objs_ref_power;
 		lst->data->color = v3_multd(lst->data->color, st->lth_str);
 		lst->data->color_dark = v3_multd(lst->data->color, 0.5);
 		lst = lst->next;
@@ -52,8 +53,10 @@ void	recalculate_colors(t_store *st)
 void	eject(t_store *st)
 {
 	free_list(st->scobj);
-	mlx_destroy_image(st->vp.mlx, st->vp.mlx_image);
-	mlx_destroy_window(st->vp.mlx, st->vp.mlx_win);
+	if (st->vp.mlx && st->vp.mlx_image)
+		mlx_destroy_image(st->vp.mlx, st->vp.mlx_image);
+	if (st->vp.mlx && st->vp.mlx_win)
+		mlx_destroy_window(st->vp.mlx, st->vp.mlx_win);
 	exit(0);
 }
 
@@ -72,5 +75,6 @@ void	preparse_setup(t_store *st)
 	st->vp.fov = PI / 2;
 	st->dt = 0;
 	st->ref_count = 0;
+	st->objs_ref_power = 0;
 	st->skyc = c_to_v3(color(0, 5, 5, 35));
 }

@@ -19,6 +19,7 @@ SRC_LST = main.c\
 		  pixel_put.c\
 		  main_utils.c\
 		  cyl_intersect_part_2.c\
+		  ft_split.c\
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_LST))
 LIB = $(MINILIBX) $(LIBFT)

@@ -118,11 +118,9 @@ typedef struct s_store
 	int			a_parsed;
 	int			c_parsed;
 	int			l_parsed;
-	int			sp_parsed;
-	int			pl_parsed;
-	int			cy_parsed;
 	int			dt;
 	int			ref_count;
+	double		objs_ref_power;
 	t_v3		lo;
 	t_v3		cam_pos;
 	t_v3		cam_dir;

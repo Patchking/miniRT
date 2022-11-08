@@ -15,11 +15,15 @@
 
 void	parse_resolution(t_store *st)
 {
-	if (count_split(st->split) != 4)
-		ft_error(st, "Error\nParse error. Resolution must have 3 params.\n");
+	if (count_split(st->split) != 6)
+		ft_error(st, "Error\nParse error. Resolution must have 5 params.\n");
 	st->vp.width = ft_atoi(st->split[1]);
 	st->vp.height = ft_atoi(st->split[2]);
-	st->ref_count = ft_atoi(st->split[3]);
+	st->ref_count = ft_atof(st->split[3]);
+	st->objs_ref_power = ft_atof(st->split[4]);
+	if (st->objs_ref_power > 1 || st->objs_ref_power < 0)
+		ft_error(st, "Error\nMirror lvl should be more 0 and less 1");
+	st->skyc = split_rgb(st->split[5], st);
 	if (st->ref_count < 0)
 		ft_error(st, "Error\nParse error. Screen ref count should be >= 0");
 	if (st->vp.width < 100 || st->vp.height < 100)
@@ -55,6 +59,7 @@ void	parse_camera(t_store *st)
 		st->vp.fov = PI - PI / 180;
 	if (st->vp.fov < 0 || st->vp.fov > PI)
 		ft_error(st, "Error\nParse error. Fov must be more 0 and less 180\n");
+	st->cam_pos.x = -st->cam_pos.x;
 	st->c_parsed = 1;
 }
 
@@ -67,5 +72,6 @@ void	parse_light(t_store *st)
 	st->lth_color = split_rgb(st->split[3], st);
 	if (st->lth_str > 1 || st->lth_str < 0)
 		ft_error(st, "Error\nLight str should be more 0 and less 1\n");
+	st->lo.x = -st->lo.x;
 	st->l_parsed = 1;
 }
