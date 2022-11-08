@@ -52,9 +52,8 @@ void	recalculate_colors(t_store *st)
 void	eject(t_store *st)
 {
 	free_list(st->scobj);
-	free(st->vp.mlx_image);
-	free(st->vp.mlx_win);
-	free(st->vp.mlx);
+	mlx_destroy_image(st->vp.mlx, st->vp.mlx_image);
+	mlx_destroy_window(st->vp.mlx, st->vp.mlx_win);
 	exit(0);
 }
 

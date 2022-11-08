@@ -67,7 +67,6 @@ void	parse(t_store *st, char *rt_file)
 	if (fd < 0)
 		ft_error(st, "Error\nFile not opened\n");
 	line = get_next_line(fd);
-	printf("line: %s\n", line);
 	init_elem_flags(st);
 	while (line)
 	{
@@ -78,6 +77,8 @@ void	parse(t_store *st, char *rt_file)
 			parse_type_id(st);
 		free(line);
 		line = get_next_line(fd);
+		split_clear(st->split);
+		st->split = 0;
 	}
 	free(line);
 	close(fd);
