@@ -43,7 +43,6 @@ void	recalculate_colors(t_store *st)
 	while (lst)
 	{
 		lst->data->pos.x = -lst->data->pos.x;
-		lst->data->ref = st->objs_ref_power;
 		lst->data->color = v3_multd(lst->data->color, st->lth_str);
 		lst->data->color_dark = v3_multd(lst->data->color, 0.5);
 		lst = lst->next;
