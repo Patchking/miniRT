@@ -7,3 +7,4 @@ minilibx/libmlx.a
 python_calculation
 *.d
 *.o
+scenes/more.rt
